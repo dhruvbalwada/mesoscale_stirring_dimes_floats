@@ -35,14 +35,19 @@ sep(npairs).U1 = nan*ones(ndays,1);
 sep(npairs).V1 = nan*ones(ndays,1);
 sep(npairs).U2 = nan*ones(ndays,1);
 sep(npairs).V2 = nan*ones(ndays,1);
+sep(npairs).dU = nan*ones(ndays,1);
+sep(npairs).dV = nan*ones(ndays,1);
 sep(npairs).names = [];
 
 for i=1:nflts-1
     for j = i+1:nflts
         
-        sep(n).X = abs(traj.Xc(:,i) - traj.Xc(:,j)).*cosd(0.5*(traj.Yc(:,i)+traj.Yc(:,j)))*111321;
-        sep(n).Y = abs(traj.Yc(:,i) - traj.Yc(:,j))*111321;
+        sep(n).X = (traj.Xc(:,i) - traj.Xc(:,j)).*cosd(0.5*(traj.Yc(:,i)+traj.Yc(:,j)))*111321;
+        sep(n).Y = (traj.Yc(:,i) - traj.Yc(:,j))*111321;
         sep(n).dist = sqrt(sep(n).X.^2 + sep(n).Y.^2);
+        sep(n).dU = traj.Uc(:,i) - traj.Uc(:,j); 
+        sep(n).dV = traj.Vc(:,i) - traj.Vc(:,j); 
+        
         sep(n).X1 = traj.Xc(:,i);
         sep(n).X2 = traj.Xc(:,j);
         sep(n).Y1 = traj.Yc(:,i);

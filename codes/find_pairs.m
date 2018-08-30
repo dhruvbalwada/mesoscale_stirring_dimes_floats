@@ -7,13 +7,11 @@
 % separation in horizontal and vertical directions, along with ensuring
 % that sufficient data is available. 
 
-function [dispersion, correlation, pairs, pos] =find_pairs(sep, distance_class, plevel,pdiff)
+function [pairs, pos] =find_pairs(sep, distance_class, plevel,pdiff, ndays)
 
-ndays = 100;
 comp_pres = ndays; % how many days do we compare the pressure for
 separation_time = ndays;
 
-% Save first day data (original pairs)
 for i =1:length(sep)
     id = find(~isnan(sep(i).dist),1);
     
@@ -39,49 +37,46 @@ for i =1:length(sep)
     
 end
 
-% Start adding pairs to different distance classes
 
+% Start adding pairs to different distance classes
 for l=1:length(distance_class)-1
     
     dist1 = distance_class(l);     % D_o class
     dist2 = distance_class(l+1);     % D_o
     
-    % ids for pairs that are in the distance class on day 1 itself.
-    id = find(origdist>=dist1 & origdist<=dist2 ...
-        & meanpresdiff<=pdiff ...
-        & meanorigpres>=plevel(1) ...
-        & meanorigpres<=plevel(2) ...
-        & (nsamples)>0.5*ndays);
+    % ids for all pairs, which satisfy pressure criterion
+    % do a basic check first.
+    idnot = find((meanpresdiff <= pdiff ...
+              & meanorigpres   >= plevel(1) ...
+              & meanorigpres   <= plevel(2) ...
+              & nsamples       >  0.5*ndays)); 
     
-    % ids for all other pairs, which was further away on day 1.
-    idnot = find(~(origdist>=dist1 & origdist<=dist2 ...
-        & meanpresdiff<=pdiff ...
-        & meanorigpres>=plevel(1) ...
-        & meanorigpres<=plevel(2) ...
-        & (nsamples)>0.5*ndays)); % find ids of pairs that are not considered original pairs
-    
-    % find chance pairs
+    % find pairs
     % that are not part of original pairs
     nchanc=1;
     clear chnc_pair startid_chnc endid_chnc
+    
     for n=1:length(idnot)
         
-        % ids that are withing the pressure ranges.
+        % ids that are within the pressure ranges.
         idps = find(sep(idnot(n)).dP<=pdiff  ...
-                    & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)<=plevel(2) ...
-                    &  0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)>=plevel(1));
+                   & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)<=plevel(2) ...
+                   & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)>=plevel(1));
         
         % find the minimum separation between float pairs.
         mindist = nanmin(sep(idnot(n)).dist(idps));
         
         % if minimum distance is larger than the range then move to next
         % pair.
-        if ~(mindist<=dist2 && mindist>=dist1)
-            continue
-        end
         
-        % start id corresponding to minimum distance.
-        ids = find(sep(idnot(n)).dist(idps) == mindist,1);
+        %if ~(mindist<=dist2 & mindist>=dist1)
+        %    continue
+        %end
+        
+        % start id corresponding to first time distance comes in range
+      
+        ids = find(sep(idnot(n)).dist(idps) >=dist1 & sep(idnot(n)).dist(idps) <= dist2 , 1);
+        
         id1 = idps(ids);
         
         idend = find(~isnan(sep(idnot(n)).dist),1,'last');
@@ -95,13 +90,16 @@ for l=1:length(distance_class)-1
             end
             
             if nsamples>=0.5*ndays
-                pres_diff = sep(idnot(n)).dP(id1);
+                
+                pres_diff      = sep(idnot(n)).dP(id1);
                 mean_pres_diff = nanmean(sep(idnot(n)).dP(id1:id1+comp_pres));
-                pres_chan = sep(idnot(n)).P1(id1);
+                pres_chan      = sep(idnot(n)).P1(id1);
+                
                 if (pres_chan>=plevel(1) & pres_chan<=plevel(2) & mean_pres_diff<=pdiff)
-                    chnc_pair(nchanc) = idnot(n);
+                    chnc_pair(nchanc)    = idnot(n);
                     startid_chnc(nchanc) = id1;
-                    endid_chnc(nchanc) = idend;
+                    endid_chnc(nchanc)   = idend;
+                    
                     nchanc = nchanc+1;
                 end
             end
@@ -163,30 +161,18 @@ for l=1:length(distance_class)-1
     %         end
     %     end
     
-    % Save original pairs
-    for i =1:length(id)
-        sep_final(i).X(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).X(startid(id(i)):endid(id(i)));
-        sep_final(i).Y(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).Y(startid(id(i)):endid(id(i)));
-        sep_final(i).dist(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).dist(startid(id(i)):endid(id(i)));
-        sep_final(i).U1(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).U1(startid(id(i)):endid(id(i)));
-        sep_final(i).U2(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).U2(startid(id(i)):endid(id(i)));
-        sep_final(i).V1(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).V1(startid(id(i)):endid(id(i)));
-        sep_final(i).V2(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).V2(startid(id(i)):endid(id(i)));
-        sep_final(i).X1(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).X1(startid(id(i)):endid(id(i)));
-        sep_final(i).X2(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).X2(startid(id(i)):endid(id(i)));
-        sep_final(i).Y1(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).Y1(startid(id(i)):endid(id(i)));
-        sep_final(i).Y2(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).Y2(startid(id(i)):endid(id(i)));
-        sep_final(i).P1(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).P1(startid(id(i)):endid(id(i)));
-        sep_final(i).P2(1:endid(id(i))-startid(id(i))+1) = sep(pairno(id(i))).P2(startid(id(i)):endid(id(i)));
-        sep_final(i).names = sep(pairno(id(i))).names;
-    end
+
     
     % Save chance pairs
-    n=length(id);
+    n=0;
+    
     for i=1:length(chnc_pair)
         sep_final(n+i).X(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).X(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).Y(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).Y(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).dist(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).dist(startid_chnc(i):endid_chnc(i));
+        sep_final(n+i).dU(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).dU(startid_chnc(i):endid_chnc(i));
+        sep_final(n+i).dV(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).dV(startid_chnc(i):endid_chnc(i));
+        
         sep_final(n+i).U1(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).U1(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).U2(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).U2(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).V1(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).V1(startid_chnc(i):endid_chnc(i));
@@ -201,28 +187,17 @@ for l=1:length(distance_class)-1
 
     end
     
-    flag = 1;
-    if flag == 1
-        [dispersion(l)] = rel_disp(sep_final,ndays,23);
-        [correlation(l)] = correlation_func(sep_final,ndays);
+    %flag = 1;
+    %if flag == 1
+    %    [dispersion(l)] = rel_disp(sep_final,ndays,23);
+    %    [correlation(l)] = correlation_func(sep_final,ndays);
         
-    end
+    %end
     pairs(l)= length(sep_final);
     
     
-    pos(l).A = sep_final;
-    %     pos(l).X2 = sep_final(:).X2;
-    %     pos(l).Y1 = sep_final(:).Y1;
-    %     pos(l).Y2 = sep_final(:).Y2;
-    
-    %     if l ==1
-    %         fitter_plotter(sep_final, ndays, 23)
-    %     end
+    pos(l).sep = sep_final;
+ 
     clear sep_final
-    % Choose one distance class to plot the anisotropy plot for
-    %     if l ==2
-    %         anisotropyvst_plotter(sep_final,ndays)
-    %     end
-end
 
-% relative_diff_plotter(dispersion)
+end
