@@ -2,10 +2,10 @@
 % Dhruv Balwada
 %
 % find_pairs.m
-% 
-% Goal of this code is to identify pairs based on some criterion of 
+%
+% Goal of this code is to identify pairs based on some criterion of
 % separation in horizontal and vertical directions, along with ensuring
-% that sufficient data is available. 
+% that sufficient data is available.
 
 function [pairs, pos] =find_pairs(sep, distance_class, plevel,pdiff, ndays)
 
@@ -47,9 +47,9 @@ for l=1:length(distance_class)-1
     % ids for all pairs, which satisfy pressure criterion
     % do a basic check first.
     idnot = find((meanpresdiff <= pdiff ...
-              & meanorigpres   >= plevel(1) ...
-              & meanorigpres   <= plevel(2) ...
-              & nsamples       >  0.5*ndays)); 
+        & meanorigpres   >= plevel(1) ...
+        & meanorigpres   <= plevel(2) ...
+        & nsamples       >  0.25*ndays));
     
     % find pairs
     % that are not part of original pairs
@@ -60,8 +60,8 @@ for l=1:length(distance_class)-1
         
         % ids that are within the pressure ranges.
         idps = find(sep(idnot(n)).dP<=pdiff  ...
-                   & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)<=plevel(2) ...
-                   & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)>=plevel(1));
+            & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)<=plevel(2) ...
+            & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)>=plevel(1));
         
         % find the minimum separation between float pairs.
         mindist = nanmin(sep(idnot(n)).dist(idps));
@@ -74,14 +74,15 @@ for l=1:length(distance_class)-1
         %end
         
         % start id corresponding to first time distance comes in range
-      
-        ids = find(sep(idnot(n)).dist(idps) >=dist1 & sep(idnot(n)).dist(idps) <= dist2 , 1);
+        
+        ids = find(sep(idnot(n)).dist(idps) >=dist1 & ...
+            sep(idnot(n)).dist(idps) <= dist2 , 1);
         
         id1 = idps(ids);
         
         idend = find(~isnan(sep(idnot(n)).dist),1,'last');
         
-        % check if sufficient samples are present in the time series of pair separations.  
+        % check if sufficient samples are present in the time series of pair separations.
         if ~isempty(id1)
             if idend-id1>ndays
                 nsamples = length(find(~isnan(sep(idnot(n)).dist(id1:id1+ndays))));
@@ -89,7 +90,7 @@ for l=1:length(distance_class)-1
                 nsamples = 0;
             end
             
-            if nsamples>=0.5*ndays
+            if nsamples>=0.25*ndays
                 
                 pres_diff      = sep(idnot(n)).dP(id1);
                 mean_pres_diff = nanmean(sep(idnot(n)).dP(id1:id1+comp_pres));
@@ -112,56 +113,96 @@ for l=1:length(distance_class)-1
     
     % for the floats that are original pairs
     %     for i =1:length(id)
-    %         idclose = find(sep(id(i)).dist<=dist2 & sep(id(i)).dist>=dist1);
-    %         idend = find(~isnan(sep(id(i)).dist),1,'last');
+    %              idclose = find(sep(id(i)).dist<=dist2 & sep(id(i)).dist>=dist1);
+    %              idend = find(~isnan(sep(id(i)).dist),1,'last');
     %
-    %         idchnc= find(idclose>=startid(id(i))+ndays,1);
+    %              idchnc= find(idclose>=startid(id(i))+ndays,1);
     %
-    %         id1 = idclose(idchnc);
-    %         if idend-id1>ndays
-    %             nsamples = length(find(~isnan(sep(id(i)).dist(id1:id1+ndays))));
-    %         else
-    %             nsamples = 0;
-    %         end
-    %         if nsamples>=0.75*ndays
-    %             pres_diff = sep(id(i)).dP(id1);
-    %             mean_pres_diff = nanmean(sep(id(i)).dP(id1:id1+comp_pres));
-    %             pres_chan = sep(id(i)).P1(id1);
-    %             if (pres_chan>=plevel(1) & pres_chan<=plevel(2) & mean_pres_diff<=pdiff)
-    %                 chnc_pair(nchanc) = id(i);
-    %                 startid_chnc(nchanc) = id1;
-    %                 endid_chnc(nchanc) = idend;
-    %                 nchanc = nchanc+1;
+    %              id1 = idclose(idchnc);
+    %              if idend-id1>ndays
+    %                  nsamples = length(find(~isnan(sep(id(i)).dist(id1:id1+ndays))));
+    %              else
+    %                  nsamples = 0;
+    %              end
+    %              if nsamples>=0.75*ndays
+    %                  pres_diff = sep(id(i)).dP(id1);
+    %                  mean_pres_diff = nanmean(sep(id(i)).dP(id1:id1+comp_pres));
+    %                  pres_chan = sep(id(i)).P1(id1);
+    %                  if (pres_chan>=plevel(1) & pres_chan<=plevel(2) & mean_pres_diff<=pdiff)
+    %                      chnc_pair(nchanc) = id(i);
+    %                      startid_chnc(nchanc) = id1;
+    %                      endid_chnc(nchanc) = idend;
+    %                      nchanc = nchanc+1;
+    %                  end
+    %              end
+    %          end
+    
+    flag =1;
+    
+    if flag ==1
+        chnc_pair_temp = chnc_pair;
+        
+        for i =1:length(chnc_pair_temp) % cycle through all chance pairs
+            
+            % find ids when the distance bw pairs is within criterion
+            idclose = find(sep(chnc_pair_temp(i)).dist<=dist2 & sep(chnc_pair_temp(i)).dist>=dist1);
+            idend = find(~isnan(sep(chnc_pair_temp(i)).dist), 1,'last');
+            
+            % find an id that is away from the chance pair id.
+            idchnc= find(idclose>=startid_chnc(i)+0.25*ndays, 1);
+            
+            if isempty(idchnc)
+                continue
+            end
+            
+            id1 = idclose(idchnc);
+            
+            if idend-id1>ndays
+                nsamples = length(find(~isnan(sep(chnc_pair_temp(i)).dist(id1:id1+ndays))));
+            else
+                nsamples = 0;
+            end
+            
+            if nsamples>=0.25*ndays
+                pres_diff = sep(chnc_pair_temp(i)).dP(id1);
+                mean_pres_diff = nanmean(sep(chnc_pair_temp(i)).dP(id1:id1+comp_pres));
+                pres_chan = sep(chnc_pair_temp(i)).P1(id1);
+                if (pres_chan>=plevel(1) & pres_chan<=plevel(2) & mean_pres_diff<=pdiff)
+                    chnc_pair(nchanc) = chnc_pair_temp(i);
+                    startid_chnc(nchanc) = id1;
+                    endid_chnc(nchanc) = idend;
+                    nchanc = nchanc+1;
+                end
+            end
+        end
+    end
+    
+    %         for i =1:length(idnot)
+    %             idclose = find(sep(idnot(i)).dist<=dist2 & sep(idnot(i)).dist>=dist1);
+    %             idend = find(~isnan(sep(idnot(i)).dist), 1,'last');
+    %
+    %             idchnc= find(idclose>=startid(id(i))+0.25*ndays, 1);
+    %
+    %             id1 = idclose(idchnc);
+    %             if idend-id1>ndays
+    %                 nsamples = length(find(~isnan(sep(id(n)).dist(id1:id1+ndays))));
+    %             else
+    %                 nsamples = 0;
+    %             end
+    %             if nsamples>=0.75*ndays
+    %                 pres_diff = sep(id(i)).dP(id1);
+    %                 mean_pres_diff = nanmean(sep(id(i)).dP(id1:id1+comp_pres));
+    %                 pres_chan = sep(id(i)).P1(id1);
+    %                 if (pres_chan>=plevel(1) & pres_chan<=plevel(2) & mean_pres_diff<=pdiff)
+    %                     chnc_pair(nchanc) = id(n);
+    %                     startid_chnc(nchanc) = id1;
+    %                     endid_chnc(nchanc) = idend;
+    %                     nchanc = nchanc+1;
+    %                 end
     %             end
     %         end
-    %     end
     
-    %     for i =1:length(idnot)
-    %         idclose = find(sep(idnot(i)).dist<=dist2 & sep(idnot(i)).dist>=dist1);
-    %         idend = find(~isnan(sep(idnot(i)).dist),1,'last');
-    %
-    %         idchnc= find(idclose>=startid(id(i))+ndays,1);
-    %
-    %         id1 = idclose(idchnc);
-    %         if idend-id1>ndays
-    %             nsamples = length(find(~isnan(sep(id(n)).dist(id1:id1+ndays))));
-    %         else
-    %             nsamples = 0;
-    %         end
-    %         if nsamples>=0.75*ndays
-    %             pres_diff = sep(id(i)).dP(id1);
-    %             mean_pres_diff = nanmean(sep(id(i)).dP(id1:id1+comp_pres));
-    %             pres_chan = sep(id(i)).P1(id1);
-    %             if (pres_chan>=plevel(1) & pres_chan<=plevel(2) & mean_pres_diff<=pdiff)
-    %                 chnc_pair(nchanc) = id(n);
-    %                 startid_chnc(nchanc) = id1;
-    %                 endid_chnc(nchanc) = idend;
-    %                 nchanc = nchanc+1;
-    %             end
-    %         end
-    %     end
     
-
     
     % Save chance pairs
     n=0;
@@ -182,22 +223,24 @@ for l=1:length(distance_class)-1
         sep_final(n+i).Y1(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).Y1(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).Y2(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).Y2(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).P1(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).P1(startid_chnc(i):endid_chnc(i));
-        sep_final(n+i).P2(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).P2(startid_chnc(i):endid_chnc(i));   
+        sep_final(n+i).P2(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).P2(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).names = sep(pairno(chnc_pair(i))).names;
-
+        
     end
     
     %flag = 1;
     %if flag == 1
     %    [dispersion(l)] = rel_disp(sep_final,ndays,23);
     %    [correlation(l)] = correlation_func(sep_final,ndays);
-        
+    
     %end
+    
+    
     pairs(l)= length(sep_final);
     
     
     pos(l).sep = sep_final;
- 
+    
     clear sep_final
-
+    
 end
