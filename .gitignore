@@ -1,5 +1,8 @@
 *.ps
 *.eps
+*.svg
+*.pdf
+*.jpg
 *.fig
 *.mat
 *.m~

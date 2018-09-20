@@ -21,6 +21,7 @@ sep = calculate_seperation_timeseries(traj);
 
 %% Specify pressure criterion, minimum days, and distance classes.
 plevel = [500 1000 1800];
+
 ndays  = 100;
 pdiff  = 200;
 
@@ -33,11 +34,28 @@ distance_class_obs = [15,20]*1000;
 
 T = 0:ndays-1;
 
-%% Number of pairs as a function time 
+obs_sep(1) = pos_ncon(1);
+obs_sep(2) = pos_ncon(2);
+
+%%
+dist_class1 = [10, 15]*1000; 
+dist_class2 = [20, 25]*1000; 
+dist_class3 = [30, 35]*1000;
+dist_class4 = [40, 45]*1000; 
+dist_class5 = [50, 55]*1000; 
+%%
+[pairs(1), pos(1)] = find_pairs(sep, dist_class1, plevel(2:3), pdiff, ndays);
+[pairs(2), pos(2)] = find_pairs(sep, dist_class2, plevel(2:3), pdiff, ndays);
+[pairs(3), pos(3)] = find_pairs(sep, dist_class3, plevel(2:3), pdiff, ndays);
+[pairs(4), pos(4)] = find_pairs(sep, dist_class4, plevel(2:3), pdiff, ndays);
+[pairs(5), pos(5)] = find_pairs(sep, dist_class5, plevel(2:3), pdiff, ndays);
+
+%% Number of pairs as a function of time 
 
 count = zeros(ndays,2); 
 
 for k =1:2
+
 for i = 1:ndays
     for j=1:pairs_ncon(k)
         if ~isnan(pos_ncon(k).sep(j).dist(i))
@@ -47,10 +65,10 @@ for i = 1:ndays
 end
 end
 
-%%
+%% 
 figure
 plot(count, '-', 'linewidth',2)
-legend('500-1000m', '1000-1800m')
+legend('500-1000m', '1000-1800m', 'location', 'best')
 xlabel('Days')
 ylabel('No. Pairs')
 set(gca,'fontsize',20)
@@ -59,69 +77,84 @@ saveas(gca,'../figures/no_pairs.pdf')
 
 
 %% Initial distribution of pairs
+
+for k =1:2 
 for i = 1:pairs_ncon 
-   ini_dist(i) = pos_ncon.sep(i).dist(1); 
+   ini_dist(k).dist(i) = pos_ncon(k).sep(i).dist(1); 
+end
 end
     
+%%
+xdata=(15:20);
+figure
+[h1] =histogram(ini_dist(1).dist/1e3, xdata);
+hold all
+[h2] =histogram(ini_dist(2).dist/1e3, xdata);
+legend('500-1000m', '1000-1800m', 'location', 'best')
+xlabel('Initial Separation (km)')
+ylabel('No. Pairs')
+set(gca,'fontsize',20)
+saveas(gca,'../figures/ini_hist.pdf')
+
+
+%% 
+for i =1:5
+    [M(:,i), Mvel(:,i)] = memory_index(pos(i).sep, 100); 
+end
+
 %
 figure
-hist(ini_dist)
+for i=1:5
+semilogx(Mvel(:,i)/Mvel(1,i),'.-')
+hold all
+%semilogx(M(:,i),'--')
+end
+
+%%
+for i =1:5
+    C(:,i) = chance_correlation(pos(i).sep, 100); 
+end
+
+figure
+for i=1:5
+semilogx(C(:,i),'.-')
+hold all
+%semilogx(M(:,i),'--')
+end
+axis([0 100 -1 1])
+
+%% isotropy 
+
+for i =1:5
+    R(i) = rel_disp(pos(i).sep, ndays, 1);
+    iso(:,i) = R(i).avdispzon./R(i).avdispmer;
+end
+
+%
+figure
+plot(iso)
+axis([0 100 0 3])
+
+%% velocity correlation
+for i=1:5
+    Cor(i) = correlation_func(pos(i).sep, ndays);
+end
+
+figure
+for i = 1:5
+    plot((Cor(i).cuu + Cor(i).cvv)/2)
+    hold all
+end
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Calculate the Different Metrics %%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Memory Index (position Correlation)
-% Equation 5.1 in Foussard et al 2017 
-% M(t) = <Y.Y_0>/ Y_0<Y^2>^0.5
-% Where Y is the separation vector, and Y_o is the initial separation
-% vector
+plot_memory_index
+plot_chance_correlation
+plot_rel_disp_init
 
-for i = 1:500
-    y = randsample(pairs_ncon,pairs_ncon,true);
-    
-    M(1:ndays,i) = memory_index(pos_ncon.sep(y), 100);
-end
-
-%%
-close all
-figure
-semilogx(M, 'linewidth', 0.5)
-hold all
-
-semilogx(nanmean(M,2), 'linewidth',2)
-
-grid
-
-%% Correlation to initial position <dv.y_o> (should be zero for original pairs)
-
-for i = 1:500
-    y = randsample(pairs_ncon,pairs_ncon,true);
-
-    C(1:ndays,i) = chance_correlation(pos_ncon.sep(y), 100);
-end
-
-%C = chance_correlation(pos_ncon.sep, 100);
-
-%%
-figure
-plot(C)
-grid
-
-%% Dispersion during ballistic regime 
-for i = 1:500
-    y = randsample(pairs_ncon,pairs_ncon,true);
-
-    [dispersion(i)] = rel_disp(pos_ncon.sep,ndays,23);
-end
-
-%% 
-figure
-loglog(T, dispersion(1).avdisp-dispersion(1).avdisp(1),'.-') 
-hold all 
-loglog(T, 10^(7.3)*T.^2, '--')
-%loglog(T, 10^(5.9)*T.^3, '--')
 
 %% Dispersion in intermediate regime
 % loglog plot 
@@ -140,7 +173,6 @@ figure
 semilogy(T, dispersion.avdisp/dispersion.avdisp(1),'.-') 
 hold all 
 
-%% Isotropy
 
 %% Velocity Correlation
 
