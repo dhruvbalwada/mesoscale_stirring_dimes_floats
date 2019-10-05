@@ -3,7 +3,6 @@
 % on 1 September 2018
 
 % load topography
-
 topo=load('../../data/topo2_SS_SO.mat');
 topo.lon=topo.lon-360;
 topo.bath=nanmoving_average2(topo.bath,4,2);
@@ -27,7 +26,7 @@ saf = load('../../data/fronts/saf.txt');
 
 fh = figure()
 
-set(fh, 'Visible','off');
+%set(fh, 'Visible','off');
 clf
 m_proj('Lambert','lat',[-66 -51], 'lon',[-114 -72]) 
 days_plt = 100; 
@@ -65,7 +64,7 @@ set(gca, 'fontsize', 16)
 
 m_grid('linest', 'none')
 
-saveas(gca,'../figures/intro.eps')
+%saveas(gca,'../figures/intro.eps')
 
 %print(gcf, '-r0', 'intro.pdf');
 

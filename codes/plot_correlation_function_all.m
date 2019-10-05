@@ -34,96 +34,102 @@ robsmean = squeeze(nanmean(robs,2));
 % Figure at first depth 
 close all 
 clear h g
-figure('rend','painters','pos',[10 10 900 600])
+figure('rend','painters','pos',[10 10 800 600])
 i=1
 for k =1:2:6
     
-    h(i)= shadedErrorBar_semilogx(T+0.001, Cobsmean(:,1,i), Cobsci(:,:,1,i), ...
+    h(i)= shadedErrorBar_semilogx(T+0.001, Cobsmean(:,1,k), Cobsci(:,:,1,k), ...
                     {'-','linewidth',3,'color',colors(i*2,:)},1)
                 hold all
-    g(i) = semilogx(T+0.001, Cmod(:,1,i), '--', 'color', colors(i*2,:), 'linewidth', 3)
+    g(i) = semilogx(T+0.001, Cmod(:,1,k), '--', 'color', colors(i*2,:), 'linewidth', 3)
     
     i=i+1
 end
-legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
+A = legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
     {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
-axis([1 100 -0.2 1])
+axis([1 100 -0.1 1])
+legend boxoff
+set(A, 'location', 'best')
 
-set(gca,'FontSize', 20)
+set(gca,'FontSize', 24)
 xlabel('$t$ (Days)', 'Interpreter','Latex') 
-ylabel('$<\delta$ $\bf{V}$ $(t)$.$\delta$ $\bf{V_o}>/$ $|\delta \bf{V_o}|^2$', 'Interpreter','Latex')
+ylabel('$<$ $\bf{u}_1$ (t) .$\bf{u}_2$(t) $>/[<$ $|\bf{u}_1|>$ $<|\bf{u}_2|>] $ $(t)$ ', 'Interpreter', 'Latex')
+
+saveas(gcf,'../figures/corr_time_shallow.eps', 'epsc')
 
 %% separation on x axis 
 % Figure at first depth 
 close all 
 clear h g
-figure('rend','painters','pos',[10 10 900 600])
-i=1
+figure('rend','painters','pos',[10 10 800 600])
+i=1;
 for k =1:2:6
     
-    h(i)= shadedErrorBar_semilogx(robsmean(:,1,i)/1e3, Cobsmean(:,1,i), Cobsci(:,:,1,i), ...
+    h(i)= shadedErrorBar_semilogx(robsmean(:,1,k)/1e3, Cobsmean(:,1,k), Cobsci(:,:,1,k), ...
                     {'-','linewidth',3,'color',colors(i*2,:)},1)
                 hold all
-    g(i) = semilogx(rmod(:,1,i)/1e3, Cmod(:,1,i), '--', 'color', colors(i*2,:), 'linewidth', 3)
+    g(i) = semilogx(rmod(:,1,k)/1e3, Cmod(:,1,k), '--', 'color', colors(i*2,:), 'linewidth', 3)
     
     i=i+1
 end
-legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
-    {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
-axis([10 300 -0.2 1])
+%legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
+%    {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
+axis([10 300 -0.1 1])
 
-set(gca,'FontSize', 20)
+set(gca,'FontSize', 24)
 xlabel('$r$ (km)', 'Interpreter','Latex') 
-ylabel('$<\delta$ $\bf{V}$ $(t)$.$\delta$ $\bf{V_o}>/$ $|\delta \bf{V_o}|^2$', 'Interpreter','Latex')
+ylabel('$<$ $\bf{u}_1$ (t) .$\bf{u}_2$(t) $>/[<$ $|\bf{u}_1|>$ $<|\bf{u}_2|>]$ $(r)$ ', 'Interpreter', 'Latex')
+saveas(gcf,'../figures/corr_r_shallow.eps', 'epsc')
 
 %% 
 % Figure at second  depth 
 close all 
 clear h g
-figure('rend','painters','pos',[10 10 900 600])
-i=1
+figure('rend','painters','pos',[10 10 800 600])
+i=1;
 for k =1:2:6
     
-    h(i)= shadedErrorBar_semilogx(T+0.001, Cobsmean(:,2,i), Cobsci(:,:,2,i), ...
-                    {'-','linewidth',3,'color',colors(i*2,:)},1)
+    h(i)= shadedErrorBar_semilogx(T+0.001, Cobsmean(:,2,k), Cobsci(:,:,2,k), ...
+                    {'-','linewidth',3,'color',colors(i*2,:)},1);
                 hold all
-    g(i) = semilogx(T+0.001, Cmod(:,2,i), '--', 'color', colors(i*2,:), 'linewidth', 3)
+    g(i) = semilogx(T+0.001, Cmod(:,2,k), '--', 'color', colors(i*2,:), 'linewidth', 3);
     
-    i=i+1
+    i=i+1;
 end
-legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
-    {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
-axis([1 100 -0.2 1])
+%legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
+%    {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
+axis([1 100 -0.1 1])
 
-set(gca,'FontSize', 20)
+set(gca,'FontSize', 24)
 xlabel('$t$ (Days)', 'Interpreter','Latex') 
-ylabel('Vel Corr')
 
-ylabel('$<$ $\bf{u}_1$ .$\bf{u}_1$ $>/(<$ $|\bf{u}_1|^2>$ $<|\bf{u}_2|^2>)^{1/2}$ ', 'Interpreter', 'Latex')
+ylabel('$<$ $\bf{u}_1$ (t) .$\bf{u}_2$(t) $>/[<$ $|\bf{u}_1|>$ $<|\bf{u}_2|>] $ $(t)$ ', 'Interpreter', 'Latex')
 %ylabel('$<\delta$ $\bf{V}$ $(t)$.$\delta$ $\bf{V_o}>/$ $|\delta \bf{V_o}|^2$', 'Interpreter','Latex')
+saveas(gcf,'../figures/corr_time_deep.eps', 'epsc')
 
 %% separation on x axis 
 % Figure at first depth 
 close all 
 clear h g
-figure('rend','painters','pos',[10 10 900 600])
-i=1
+figure('rend','painters','pos',[10 10 800 600])
+i=1;
 for k =1:2:6
     
-    h(i)= shadedErrorBar_semilogx(robsmean(:,2,i)/1e3, Cobsmean(:,2,i), Cobsci(:,:,2,i), ...
-                    {'-','linewidth',3,'color',colors(i*2,:)},1)
+    h(i)= shadedErrorBar_semilogx(robsmean(:,2,k)/1e3, Cobsmean(:,2,k), Cobsci(:,:,2,k), ...
+                    {'-','linewidth',3,'color',colors(i*2,:)},1);
                 hold all
-    g(i) = semilogx(rmod(:,2,i)/1e3, Cmod(:,2,i), '--', 'color', colors(i*2,:), 'linewidth', 3)
+    g(i) = semilogx(rmod(:,2,k)/1e3, Cmod(:,2,k), '--', 'color', colors(i*2,:), 'linewidth', 3);
     
     i=i+1
 end
-legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
-    {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
-axis([10 300 -0.2 1])
+%legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
+%    {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
+axis([10 300 -0.1 1])
 
-set(gca,'FontSize', 20)
+set(gca,'FontSize', 24)
 xlabel('$r$ (km)', 'Interpreter','Latex') 
-ylabel('$<\delta$ $\bf{V}$ $(t)$.$\delta$ $\bf{V_o}>/$ $|\delta \bf{V_o}|^2$', 'Interpreter','Latex')
+ylabel('$<$ $\bf{u}_1$ (t) .$\bf{u}_2$(t) $>/[<$ $|\bf{u}_1|>$ $<|\bf{u}_2|>]$ $(r)$ ', 'Interpreter', 'Latex')
+saveas(gcf,'../figures/corr_r_deep.eps', 'epsc')
 
 %% Time Scale 
 
@@ -164,7 +170,7 @@ end
 Tscale_obs_mean = squeeze(nanmean(Tscale_obs, 1)); 
 for i =1:length(distance_class)
     for j =1:2
-            Tscale_obs_ci(:,j,i) = prctile(Tscale_obs(:,j,i), [95, 5]);
+            Tscale_obs_ci(:,j,i) = prctile(Tscale_obs(:,j,i), [5, 95]);
     end
 end
 %%
@@ -173,14 +179,22 @@ dist_axis = mod_dist_ini(1,:)/1000;
 figure('rend','painters','pos',[10 10 900 300])
 plot(dist_axis, Tscale_mod,'*-','MarkerSize',10, 'Linewidth',3)
 hold all 
-errorbar(dist_axis, Tscale_obs_mean(1,:), ...
-    squeeze(Tscale_obs_ci(2,1,:)), ...
-    squeeze(Tscale_obs_ci(1,1,:)) ...
-    ,'o-', 'MarkerSize',10, 'LineWidth',3)
-errorbar(dist_axis, Tscale_obs_mean(2,:), ...
-    squeeze(Tscale_obs_ci(2,2,:)), ...
-    squeeze(Tscale_obs_ci(1,2,:)) ...
-    ,'o-', 'MarkerSize',10, 'LineWidth',3)
+
+for j=1:2
+errorbar(dist_axis, Tscale_obs_mean(j,:), ...
+    squeeze(-Tscale_obs_ci(1,j,:))'+ Tscale_obs_mean(j,:), ...
+    squeeze(Tscale_obs_ci(2,j,:))'- Tscale_obs_mean(j,:) ...
+    ,'o-', 'MarkerSize',10, 'LineWidth',3, 'CapSize', 18)
+end
+
+% errorbar(dist_axis, Tscale_obs_mean(1,:), ...
+%     squeeze(Tscale_obs_ci(2,1,:)), ...
+%     squeeze(Tscale_obs_ci(1,1,:)) ...
+%     ,'o-', 'MarkerSize',10, 'LineWidth',3)
+% errorbar(dist_axis, Tscale_obs_mean(2,:), ...
+%     squeeze(Tscale_obs_ci(2,2,:)), ...
+%     squeeze(Tscale_obs_ci(1,2,:)) ...
+%     ,'o-', 'MarkerSize',10, 'LineWidth',3)
 
 %errorbar(dist_axis, Tscale_obs_mean(1,:), ...
 %    squeeze(Tscale_obs_ci(2,1,:))'- Tscale_obs_mean(1,:), ...
@@ -193,13 +207,14 @@ errorbar(dist_axis, Tscale_obs_mean(2,:), ...
 %    squeeze(Tscale_obs_ci(1,2,:))'- Tscale_obs_mean(2,:) ...
 %    ,'o-', 'MarkerSize',10, 'LineWidth',3)
 
-axis([0 70 0 70])
-A = legend('Model 750m', 'Model 1500m', 'Obs 500-1000m', 'Obs 1000-1800m')
-set(A, 'location', 'northwest', 'fontsize',16)
-set(gca, 'Fontsize',20)
+axis([0 70 0 60])
+A = legend('Model Shallow', 'Model Deep', 'Obs Shallow', 'Obs Deep');
+legend boxoff
+set(A, 'location', 'best', 'fontsize',24)
+set(gca, 'Fontsize',24)
 xlabel('D_o (km)')
-ylabel('Mem. Time Scale (Days)')
-saveas(gcf,'../figures/corr_time.eps', 'epsc')
+ylabel('Corr. Time Scale (Days)')
+saveas(gcf,'../figures/corr_time_scale.eps', 'epsc')
 
 
 %%

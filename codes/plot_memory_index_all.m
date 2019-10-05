@@ -20,6 +20,17 @@ for i =1:length(distance_class)
 disp(i)
 end
 
+%% 
+
+figure 
+for n=1:500
+    semilogx(T, Mvel_obs(:,n,2,2))
+    hold all
+end
+figure
+shadedErrorBar_semilogx(T+0.001, Mvelobs_mean(:,2,3), Mvelobscir(:,:,2,3), ...
+                    {'-','linewidth',3,'color','k'},1)
+axis([1 100 -0.5 1])
 %% calc the means and std
 
 Mobs_mean = squeeze(nanmean(M_obs,2));
@@ -51,46 +62,47 @@ colors =get(gca,'colororder');
 % Figure at first depth 
 close all 
 clear h g
-figure('rend','painters','pos',[10 10 900 600])
+figure('rend','painters','pos',[10 10 800 600])
 i=1
 for k =1:2:6
     
-    h(i)= shadedErrorBar_semilogx(T+0.001, Mvelobs_mean(:,1,i), Mvelobscir(:,:,1,i), ...
+    h(i)= shadedErrorBar_semilogx(T+0.001, Mvelobs_mean(:,1,k), Mvelobscir(:,:,1,k), ...
                     {'-','linewidth',3,'color',colors(i*2,:)},1)
                 hold all
-    g(i) = semilogx(T+0.001, Mvel_mod(:,1,i), '--', 'color', colors(i*2,:), 'linewidth', 3)
+    g(i) = semilogx(T+0.001, Mvel_mod(:,1,k), '--', 'color', colors(i*2,:), 'linewidth', 3)
     
     i=i+1
 end
 legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
     {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
 axis([1 100 -0.5 1])
-
-set(gca,'FontSize', 20)
+legend boxoff
+set(gca,'FontSize', 24)
 xlabel('$t$ (Days)', 'Interpreter','Latex') 
-ylabel('$<\delta$ $\bf{V}$ $(t)$.$\delta$ $\bf{V_o}>/$ $|\delta \bf{V_o}|^2$', 'Interpreter','Latex')
+ylabel('$<\delta$ $\bf{V}$ $(t)$.$\delta$ $\bf{V_o}>/$ $<|\delta \bf{V_o}|$ $><|\delta \bf{V}$ $(t)|>$ ', 'Interpreter','Latex')
 
 saveas(gcf,'../figures/memory_shallow.eps', 'epsc')
 %%
 % Figure at first depth 
 
-figure('rend','painters','pos',[10 10 900 600])
+figure('rend','painters','pos',[10 10 800 600])
 i=1
 for k =1:2:6
-    h(i)= shadedErrorBar_semilogx(T+0.001, Mvelobs_mean(:,2,i), Mvelobscir(:,:,2,i), ...
+    h(i)= shadedErrorBar_semilogx(T+0.001, Mvelobs_mean(:,2,k), Mvelobscir(:,:,2,k), ...
                     {'-','linewidth',3,'color',colors(i*2,:)},1)
                 hold all
-    g(i) = semilogx(T+0.001, Mvel_mod(:,2,i), '--', 'color', colors(i*2,:), 'linewidth', 3)
+    g(i) = semilogx(T+0.001, Mvel_mod(:,2,k), '--', 'color', colors(i*2,:), 'linewidth', 3)
     i=i+1
     disp(k)
 end
-legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
-    {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
+%legend([h(1).mainLine,h(2).mainLine, h(3).mainLine, g], ...
+%    {'Obs 10-15km', 'Obs 30-35km', 'Obs 50-55km','Mod 11km', 'Mod 33km', 'Mod 50km'}) 
 axis([1 100 -0.5 1])
+%legend boxoff
 
-set(gca,'FontSize', 20)
+set(gca,'FontSize', 24)
 xlabel('$t$ (Days)', 'Interpreter','Latex') 
-ylabel('$<\delta$ $\bf{V}$ $(t)$.$\delta$ $\bf{V_o}>/$ $|\delta \bf{V_o}|^2$', 'Interpreter','Latex')
+ylabel('$<\delta$ $\bf{V}$ $(t)$.$\delta$ $\bf{V_o}>/$ $<|\delta \bf{V_o}|$ $><|\delta \bf{V}$ $(t)|>$ ', 'Interpreter','Latex')
 
 saveas(gcf,'../figures/memory_deep.eps', 'epsc')
 %% Derive the 0.5 crossing time scale 
@@ -98,11 +110,11 @@ saveas(gcf,'../figures/memory_deep.eps', 'epsc')
 for i =1:length(distance_class)
     for j =1:2
         for n = 1:500
-            Tseries = Mvel_obs(1:20,n,j,i);
+            Tseries = Mvel_obs(1:50,n,j,i);
 
-            tax = linspace(0,19,10000); 
+            tax = linspace(0,49,10000); 
 
-            Ts_int = interp1(T(1:20), Tseries, tax); 
+            Ts_int = interp1(T(1:50), Tseries, tax); 
 
             Tscale_obs(n,j,i) = tax(find(Ts_int<0.5,1));
         end
@@ -127,43 +139,45 @@ end
 Tscale_obs_mean = squeeze(nanmean(Tscale_obs, 1)); 
 for i =1:length(distance_class)
     for j =1:2
-            Tscale_obs_ci(:,j,i) = prctile(Tscale_obs(:,j,i), [95, 5]);
+            Tscale_obs_ci(:,j,i) = prctile(Tscale_obs(:,j,i), [5, 95]);
     end
 end
 
 %% 
 %close all
 dist_axis = mod_dist_ini(1,:)/1000;
-figure('rend','painters','pos',[10 10 900 300])
+figure('rend','painters','pos',[10 10 800 300])
 plot(dist_axis, Tscale_mod,'*-','MarkerSize',10, 'Linewidth',3)
 hold all 
-errorbar(dist_axis, Tscale_obs_mean(1,:), ...
-    squeeze(Tscale_obs_ci(2,1,:)), ...
-    squeeze(Tscale_obs_ci(1,1,:)) ...
-    ,'o-', 'MarkerSize',10, 'LineWidth',3)
-errorbar(dist_axis, Tscale_obs_mean(2,:), ...
-    squeeze(Tscale_obs_ci(2,2,:)), ...
-    squeeze(Tscale_obs_ci(1,2,:)) ...
-    ,'o-', 'MarkerSize',10, 'LineWidth',3)
-
 %errorbar(dist_axis, Tscale_obs_mean(1,:), ...
-%    squeeze(Tscale_obs_ci(2,1,:))'- Tscale_obs_mean(1,:), ...
-%    squeeze(Tscale_obs_ci(1,1,:))'- Tscale_obs_mean(1,:) ...
+%    squeeze(Tscale_obs_ci(2,1,:)), ...
+%    squeeze(Tscale_obs_ci(1,1,:)) ...
+%    ,'o-', 'MarkerSize',10, 'LineWidth',3)
+%errorbar(dist_axis, Tscale_obs_mean(2,:), ...
+%    squeeze(Tscale_obs_ci(2,2,:)), ...
+%    squeeze(Tscale_obs_ci(1,2,:)) ...
 %    ,'o-', 'MarkerSize',10, 'LineWidth',3)
 
+for j=1:2
+errorbar(dist_axis, Tscale_obs_mean(j,:), ...
+    squeeze(-Tscale_obs_ci(1,j,:))'+ Tscale_obs_mean(j,:), ...
+    squeeze(Tscale_obs_ci(2,j,:))'- Tscale_obs_mean(j,:) ...
+    ,'o-', 'MarkerSize',10, 'LineWidth',3, 'CapSize', 18)
+end
 
 %errorbar(dist_axis, Tscale_obs_mean(2,:), ...
 %    squeeze(Tscale_obs_ci(2,2,:))'- Tscale_obs_mean(2,:), ...
 %    squeeze(Tscale_obs_ci(1,2,:))'- Tscale_obs_mean(2,:) ...
 %    ,'o-', 'MarkerSize',10, 'LineWidth',3)
 
-axis([0 70 0 18])
-A = legend('Model 750m', 'Model 1500m', 'Obs 500-1000m', 'Obs 1000-1800m')
+axis([0 70 0 11])
+A = legend('Mod. Shallow', 'Mod. Deep', 'Obs. Shallow', 'Obs. Deep');
+legend boxoff
 set(A, 'location', 'northwest', 'fontsize',16)
 set(gca, 'Fontsize',20)
 xlabel('D_o (km)')
 ylabel('Mem. Time Scale (Days)')
 saveas(gcf,'../figures/memory_time.eps', 'epsc')
 
-%% 
+
 
