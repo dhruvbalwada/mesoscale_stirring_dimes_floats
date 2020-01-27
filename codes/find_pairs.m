@@ -63,8 +63,8 @@ for l=1:length(distance_class)-1
             & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)<=plevel(2) ...
             & 0.5*(sep(idnot(n)).P1+sep(idnot(n)).P2)>=plevel(1));
         
-        % find the minimum separation between float pairs.
-        mindist = nanmin(sep(idnot(n)).dist(idps));
+        % % % find the minimum separation between float pairs. 
+        % mindist = nanmin(sep(idnot(n)).dist(idps));
         
         % if minimum distance is larger than the range then move to next
         % pair.
@@ -73,7 +73,7 @@ for l=1:length(distance_class)-1
         %    continue
         %end
         
-        % start id corresponding to first time distance comes in range
+        % % % start id corresponding to first time distance comes in range
         
         ids = find(sep(idnot(n)).dist(idps) >=dist1 & ...
             sep(idnot(n)).dist(idps) <= dist2 , 1);
@@ -109,7 +109,7 @@ for l=1:length(distance_class)-1
     end
     
 
-    flag =1;
+    flag =1; % if this is 1 then look to see if multiple pairs can be formed in the same timeseries of separation.
     
     if flag ==1
         chnc_pair_temp = chnc_pair;
@@ -169,7 +169,17 @@ for l=1:length(distance_class)-1
         sep_final(n+i).Y2(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).Y2(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).P1(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).P1(startid_chnc(i):endid_chnc(i));
         sep_final(n+i).P2(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).P2(startid_chnc(i):endid_chnc(i));
+        
+        sep_final(n+i).T1(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).T1(startid_chnc(i):endid_chnc(i));
+        sep_final(n+i).T2(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).T2(startid_chnc(i):endid_chnc(i));
+        
+        sep_final(n+i).time(1:endid_chnc(i)-startid_chnc(i)+1) = sep(chnc_pair(i)).time(startid_chnc(i):endid_chnc(i));
+        
         sep_final(n+i).names = sep(pairno(chnc_pair(i))).names;
+        
+        sep_final(n+i).meanpres = nanmean(0.5*(sep_final(n+i).P1(1:comp_pres) + sep_final(n+i).P2(1:comp_pres))); 
+        sep_final(n+i).meanpresdiff = nanmean(abs(sep_final(n+i).P1(1:comp_pres) - sep_final(n+i).P2(1:comp_pres))); 
+        
         
     end
         

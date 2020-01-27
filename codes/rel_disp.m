@@ -1,10 +1,11 @@
 
-function [dispersion] = rel_disp(sep,ndays, figno)
+function [dispersion] = rel_disp(sep,ndays)
 
 npairs = length(sep);
 X = nan*ones(ndays,npairs);
 Y = nan*ones(ndays,npairs);
 dist = nan*ones(ndays,npairs);
+figno = 1; 
 
 for i = 1:npairs
     len = length(sep(i).X);

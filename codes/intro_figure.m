@@ -1,6 +1,7 @@
 % intro_figure.m
 % Modified by Dhruv Balwada
-% on 1 September 2018
+% on 13 January 2020
+
 
 % load topography
 topo=load('../../data/topo2_SS_SO.mat');
@@ -22,9 +23,11 @@ pf= load('../../data/fronts/pf.txt');
 saf = load('../../data/fronts/saf.txt');
 
 %% 
+
+%% 
 % float trajectories 
 
-fh = figure()
+fh = figure();
 
 %set(fh, 'Visible','off');
 clf
@@ -78,7 +81,7 @@ d = [4, 10];
 
 
 %%
-fh = figure()
+fh = figure(); 
 
 set(fh, 'Visible','off');
 clf
@@ -118,6 +121,6 @@ set(gca, 'fontsize', 16)
 
 
 m_grid('linest', 'none')
-saveas(gca,'../figures/intro_models.pdf')
+% saveas(gca,'../figures/intro_models.pdf')
 
 

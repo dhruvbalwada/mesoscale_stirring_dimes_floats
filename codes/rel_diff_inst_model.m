@@ -61,8 +61,6 @@ rd_struct.rdmean = rdmean;
 rd_struct.rdXmean = rdXmean;
 rd_struct.rdYmean = rdYmean;
 
-
-
 end
 
 

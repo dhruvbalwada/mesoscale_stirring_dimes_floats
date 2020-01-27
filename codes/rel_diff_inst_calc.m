@@ -32,8 +32,6 @@ end
 distance_class(1).dist = [5,50]*1e3;
 model_sep_calcs
 
-
-
 %% calculate separation time series 
 
 sep_obs = calculate_seperation_timeseries(traj);

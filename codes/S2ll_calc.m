@@ -32,36 +32,9 @@ end
 distance_class(1).dist = [5,50]*1e3;
 model_sep_calcs
 
-%% interpolate the obs to finer time sections 
-Tint = [1:1/24:1117];
-Xint = nan(length(Tint),size(traj.Xc,2));
-Yint = nan(length(Tint),size(traj.Xc,2));
-Uint = nan(length(Tint),size(traj.Xc,2));
-Vint = nan(length(Tint),size(traj.Xc,2));
-Pint = nan(length(Tint),size(traj.Xc,2));
-tempint= nan(length(Tint),size(traj.Xc,2));
-
-for i = 1:size(traj.Xc,2) 
-    Xint(:,i) = interp1([1:1117] , traj.Xc(:,i), [1:1/24:1117]);
-    Yint(:,i) = interp1([1:1117] , traj.Yc(:,i), [1:1/24:1117]);
-    Uint(:,i) = interp1([1:1117] , traj.Uc(:,i), [1:1/24:1117]);
-    Vint(:,i) = interp1([1:1117] , traj.Vc(:,i), [1:1/24:1117]);
-    Pint(:,i) = interp1([1:1117] , traj.Pi(:,i), [1:1/24:1117]);
-    tempint(:,i) = interp1([1:1117] , traj.Ti(:,i), [1:1/24:1117]);
-end
-
-traj_int.Xc = Xint; 
-traj_int.Yc = Yint;
-traj_int.Uc = Uint;
-traj_int.Vc = Vint;
-traj_int.Pi = Pint;
-traj_int.Ti = tempint;
-traj_int.name = traj.name;
-
 
 %% calculate separation time series 
 
-sep_obs_int = calculate_seperation_timeseries(traj_int);
 sep_obs = calculate_seperation_timeseries(traj);
 
 %% first define the distance axis 
@@ -78,7 +51,6 @@ dist_axis = 0.5*(dist_bin(1:end-1) + dist_bin(2:end));
 
 diff_pres = 100; 
 plevel = [500 1000 1800];
-
 
 %% obs
 [S2ll_obs_deep_mean, S2ll_obs_deep_ci] = S2ll(sep_obs, dist_bin, diff_pres, plevel(2:3)); 

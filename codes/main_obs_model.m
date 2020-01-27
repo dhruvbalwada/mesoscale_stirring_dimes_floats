@@ -16,7 +16,6 @@ obs_traj.Xc(obs_traj.Xc>-82) = NaN;
 d=[4, 10];
 
 for i =1:length(d)
-    
     [mod_traj(i).X, mod_traj(i).Y, mod_traj(i).U, mod_traj(i).V, mod_traj(i).T, depth(i)] = loadpairs(d(i));
     
     mod_traj(i).U(mod_traj(i).U==-999) = NaN;
@@ -61,8 +60,12 @@ for i =1:length(distance_class)
 end
 
 %% calc sep models
-model_sep_calcs
-%
+for j = 1:length(distance_class)
+    for i =1:length(mod_traj)
+        mod_sep(j,i) = model_sep_calcs(mod_traj(i), distance_class(j).dist); 
+    end
+end
+%%
 for i =1:length(distance_class)
     for j=1:2
         mod_pairs(j,i) = length(mod_sep(j,i).sep);

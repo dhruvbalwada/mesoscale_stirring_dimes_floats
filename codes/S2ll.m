@@ -18,7 +18,7 @@ for i =1:length(dist_axis)
             sep(j).P1>plevel(1) & sep(j).P1<plevel(2));
 
         
-        ids2keep = find(id~=1117);
+        % ids2keep = find(id~=1117);
         %  id = id(ids2keep);
         
         % loop over the different pairs that lie in the range
@@ -46,7 +46,6 @@ for i =1:length(dist_axis)
     
     struct_pairs(i).dull = dull;
     
-    disp(i)
 end
 
 for i = 1:length(dist_axis)

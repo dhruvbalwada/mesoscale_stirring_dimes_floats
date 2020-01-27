@@ -37,6 +37,7 @@ sep(npairs).U2 = nan*ones(ndays,1);
 sep(npairs).V2 = nan*ones(ndays,1);
 sep(npairs).dU = nan*ones(ndays,1);
 sep(npairs).dV = nan*ones(ndays,1);
+sep(npairs).time = nan*ones(ndays,1);
 sep(npairs).names = [];
 
 for i=1:nflts-1
@@ -63,6 +64,7 @@ for i=1:nflts-1
         sep(n).T2 = traj.Ti(:,j);
         sep(n).names(1) = str2num(traj.name(:,i)');
         sep(n).names(2) = str2num(traj.name(:,j)');
+        sep(n).time = traj.Tv;
         n = n+1;
     end
 end

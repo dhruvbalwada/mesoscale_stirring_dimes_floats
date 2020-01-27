@@ -47,7 +47,7 @@ for i =1:length(dist_axis)
     
     struct_pairs(i).dull = dull;
     
-    disp(i)
+    %disp(i)
 end
 
 for i = 1:length(dist_axis)
