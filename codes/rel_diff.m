@@ -1,4 +1,4 @@
-% Modified on 30 August 2018
+% Modified on 27 January 2020
 % Dhruv Balwada
 % 
 % rel_diff.m
@@ -7,11 +7,15 @@
 % 
 % Krel = 1/2 * d<Y^2>/dt
 
-function [diff] = rel_diff(dispersion, ndays) 
-    diff = nan*ones(ndays,1); 
+function [diff_struct] = rel_diff(dispersion, ndays, smdays) 
     
+diff = nan*ones(ndays,1); 
+    r = nan*ones(ndays,1); 
     
+    diff(1:end-smdays) = (dispersion(1+smdays:end) - dispersion(1:end-smdays))/24/3600/2/smdays; 
     
-    diff(2:end-1) = (dispersion(3:end) - dispersion(1:end-2))/24/3600/2/2; % center difference
+    r = dispersion.^0.5; 
     
+   diff_struct.diff =  diff; 
+   diff_struct.r =  r; 
 end

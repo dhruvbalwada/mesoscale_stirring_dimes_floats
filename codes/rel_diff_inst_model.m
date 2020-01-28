@@ -24,7 +24,7 @@ for i =1:length(dist_axis)
         %             & abs(sep(j).T1-sep(j).T2)<diff_temp & sep(j).X1<-70 & sep(j).X2<-70 & ...
         %             sep(j).P1>plevel(1) & sep(j).P1<plevel(2));
         
-        ids2keep = find(id<=734);
+        ids2keep = find(id<=736-smdays);
         id = id(ids2keep);
         
         % loop over the different pairs that lie in the range
@@ -46,7 +46,7 @@ for i =1:length(dist_axis)
     rdpairs(i).rdX = rdX;
     rdpairs(i).rdY = rdY;
     
-    disp(i)
+    %disp(i)
 end
 
 

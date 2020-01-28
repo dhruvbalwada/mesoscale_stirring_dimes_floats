@@ -105,7 +105,7 @@ for i =1:length(dist_axis)
             
         end
     end
-    disp(i)
+    %disp(i)
     
 end
 
@@ -127,6 +127,6 @@ for i = 1:length(dist_axis)
 end
 
 fsleci(:,1) = 0.434*(fsletemp(:,1) - fslemean)./fslemean; 
-fsleic(:,2) = 0.434*(-fsletemp(:,2) + fslemean)./fslemean;
+fsleci(:,2) = 0.434*(-fsletemp(:,2) + fslemean)./fslemean;
 
 end

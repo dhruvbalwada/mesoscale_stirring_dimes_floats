@@ -93,7 +93,7 @@ for i =1:length(dist_axis)
             
         end
     end
-    disp(i)
+    %disp(i)
     
 end
 

@@ -53,7 +53,7 @@ for i =1:length(dist_axis)
     rdpairs(i).rdX = rdX;
     rdpairs(i).rdY = rdY;
     
-    disp(i)
+    %disp(i)
 end
 
 
