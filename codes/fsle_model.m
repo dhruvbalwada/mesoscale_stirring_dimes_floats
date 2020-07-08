@@ -52,11 +52,13 @@ for i =1:length(dist_axis)
                 end
                 
                 if flag_interp==0
-                    t1 = id1(k);
-                    t2 = id22(k);
+                    %t1 = id1(k);
+                    %t2 = id22(k);
+                    t1 = sep(j).T(id1(k));
+                    t2 = sep(j).T(id22(k));
                 else
-                    t1 = interp1([sep(j).dist(id1(k)) sep(j).dist(id1(k)+1)], [id1(k) id1(k)+1], dist_bin(i));
-                    t2 = interp1([sep(j).dist(id22(k)-1) sep(j).dist(id22(k))], [id22(k)-1 id22(k)], dist_bin(i+1));
+                    t1 = interp1([sep(j).dist(id1(k)) sep(j).dist(id1(k)+1)], [sep(j).T(id1(k)) sep(j).T(id1(k)+1)], dist_bin(i));
+                    t2 = interp1([sep(j).dist(id22(k)-1) sep(j).dist(id22(k))], [sep(j).T(id22(k)-1)  sep(j).T(id22(k))], dist_bin(i+1));
                 end
                 
                 if (t2>t1)
@@ -71,8 +73,8 @@ for i =1:length(dist_axis)
                 if k<length(id22)
                     while id22(k)==id22(k+1)
                         k=k+1;
-                        t1 = interp1([sep(j).dist(id1(k)) sep(j).dist(id1(k)+1)], [id1(k) id1(k)+1], dist_bin(i));
-                        t2 = interp1([sep(j).dist(id22(k)-1) sep(j).dist(id22(k))], [id22(k)-1 id22(k)], dist_bin(i+1));
+                        t1 = interp1([sep(j).dist(id1(k)) sep(j).dist(id1(k)+1)], [sep(j).T(id1(k)) sep(j).T(id1(k)+1)], dist_bin(i));
+                        t2 = interp1([sep(j).dist(id22(k)-1) sep(j).dist(id22(k))], [sep(j).T(id22(k)-1)  sep(j).T(id22(k))], dist_bin(i+1));
                         
                         if t2>t1
                             pair(m) = t2 - t1;

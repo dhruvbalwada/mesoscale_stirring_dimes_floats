@@ -30,7 +30,7 @@ for i = 1:length(Tfit)
     % function for the dispersion of non-local dispersion
     flung = @(Tlung,xdata)(Ro^2)*exp(8*xdata/Tlung);
     
-    Tlung(i) = lsqcurvefit(flung, Tlguess, T(1:id), dispersion(1:id));
+    [Tlung(i), resnormlung(i)] = lsqcurvefit(flung, Tlguess, T(1:id), dispersion(1:id));
     
     %disp(flung(Tlung, T(1)))
     %% Matching to the Richardson Distribution (least squares)
@@ -43,7 +43,7 @@ for i = 1:length(Tfit)
         exp(-9*Ro^(2/3)/4/bguess./xdata).* ...
         hypergeom(6,3,9*Ro^(2/3)/4/bguess./xdata);
     
-    beta(i) = lsqcurvefit(frich,bguess, T(2:id), dispersion(2:id));
+    [beta(i), resnormbeta(i)] = lsqcurvefit(frich,bguess, T(2:id), dispersion(2:id));
     %disp(frich(beta, T(2)))
     %% Matching the Rayleigh Distribution
     %
@@ -61,6 +61,8 @@ end
 
 fitting.Tlung = Tlung;
 fitting.beta = beta;
+fitting.resnormbeta =resnormbeta;
+fitting.resnormlung = resnormlung; 
 fitting.Ro = Ro;
 fitting.aT = aT; 
 

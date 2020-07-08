@@ -1,7 +1,7 @@
 % Dhruv Balwada
 % 24 September 2018
 
-function [S2ll] = S2ll_model(sep, dist_bin, diff_pres, plevel)
+function [S2ll] = S2ll_model(sep, dist_bin)
 
 dist_axis = 0.5*(dist_bin(1:end-1) + dist_bin(2:end));
 
@@ -19,7 +19,7 @@ for i =1:length(dist_axis)
         %             & abs(sep(j).T1-sep(j).T2)<diff_temp & sep(j).X1<-70 & sep(j).X2<-70 & ...
         %             sep(j).P1>plevel(1) & sep(j).P1<plevel(2));
         
-        ids2keep = find(id~=1117);
+        %ids2keep = find(id~=1117);
         %  id = id(ids2keep);
         
         % loop over the different pairs that lie in the range
