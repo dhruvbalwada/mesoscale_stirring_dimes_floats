@@ -1,0 +1,683 @@
+%% Version 4.3.2, 25 August 2014
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template.tex --  LaTeX-based template for submissions to the 
+% American Meteorological Society
+%
+% Template developed by Amy Hendrickson, 2013, TeXnology Inc., 
+% amyh@texnology.com, http://www.texnology.com
+% following earlier work by Brian Papa, American Meteorological Society
+%
+% Email questions to latex@ametsoc.org.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREAMBLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Start with one of the following:
+% DOUBLE-SPACED VERSION FOR SUBMISSION TO THE AMS
+\documentclass[]{ametsoc}
+%\documentclass[twocol]{ametsoc}
+%\usepackage{array}
+\usepackage{tabularx}
+%\usepackage{pdflscape}
+%\usepackage{subfig}
+%\usepackage{epstopdf}
+%\usepackage{graphicx}
+%\usepackage{pdflscape}
+%\usepackage{rotating}
+%\usepackage{tablefootnote}
+% TWO-COLUMN JOURNAL PAGE LAYOUT---FOR AUTHOR USE ONLY
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% To be entered only if twocol option is used
+\journal{jpo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Citations should be of the form ``author year''  not ``author, year''
+\bibpunct{(}{)}{;}{a}{}{,}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% To be entered by author:
+
+\title{Relative Dispersion in the Antarctic Circumpolar Current}
+
+\authors{Dhruv Balwada\correspondingauthor{Dhruv Balwada, School of Oceanography, 
+                University of Washington, Washington, WA, USA. }}
+\affiliation{School of Oceanography, 
+                 University of Washington, Seattle, Washington, USA}
+\email{dbalwada@uw.edu}
+\extraauthor{Joseph H. LaCasce}
+\extraaffil{Department of Geosciences, University of Oslo, Oslo, Norway}
+\extraauthor{Kevin G. Speer}
+\extraaffil{Geophysical Fluid Dynamics Institute, 
+                 Florida State University, Tallahassee, Florida, USA}     
+\extraauthor{Raffaele Ferrari}
+\extraaffil{Department of Earth, Atmosphere and Planetary Sciences, 
+                 Massachusetts Institute of Technology, Cambridge, Massachusetts, USA}             
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ABSTRACT
+%
+\abstract{
+Stirring in the subsurface Southern Ocean is examined using RAFOS float trajectories, collected during the Diapycnal and Isopycnal Mixing Experiment in the Southern Ocean (DIMES), along with particle trajectories from a regional eddy permitting model. A central question is the extent to which the stirring is local, by eddies comparable in size to the pair separation, or non-local, by eddies at larger scales. To test this, we examine metrics based on averaging in time and in space. The model particles exhibit non-local dispersion, as expected for a limited resolution numerical model that does not resolve flows at scales smaller than $\sim 10$days or $\sim 20-30$km. The different metrics are less consistent for the RAFOS floats; relative dispersion, kurtosis and relative diffusivity suggest non-local dispersion as they are consistent with the model within error, while finite size Lyapunov exponents (FSLE) suggests local dispersion.
+This occurs for two reasons: (i) limited sampling of the inertial length scales and relatively small number of pairs hinder statistical robustness in time-based metrics, and (ii) some space-based metrics (FSLE, $2^{nd}$ order structure functions), which do not average over wave motions and are reflective of the kinetic energy distribution, are probably unsuitable to infer dispersion characteristics if the flow field includes energetic wave-like flows that do not disperse particles. The relative diffusivity, which is also a space-based metric, allows averaging over waves to infer the dispersion characteristics. Hence, given the error characteristics of the metrics and data used here, the stirring in the DIMES region is likely to be non-local at scales of 5-100km.}
+
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN BODY OF PAPER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+% Ocean is turbulent and proper parameterization is important
+Oceanic flows are turbulent over a large range of length scales, and are very efficient at stirring tracers along isopycnals, enhancing the effects of molecular diffusion by many orders of magnitude \citep{garrett2006turbulent}. The parameterization of this lateral stirring is key to the proper representation of the oceanic transport of heat, carbon, nutrients and other climatically important tracers in climate models (e.g. \cite{gnandesikan2015, fox2013lateral}). The details of these parameterizations are particularly important in the Southern Ocean, where the surface is connected to the deep ocean via sloping isopycnals and along isopycnal stirring plays a key role in biological production \citep{uchida2019contribution, uchida2020vertical} and ventilation of the deep ocean \citep{marshall2012closure, abernathey2015southern, balwada2018submesoscale, jones2019isopycnal}. To ensure the fidelity of these parameterizations it is essential that quantitative estimates of stirring are obtained using in-situ measurements.
+
+% Stirring's dependence on scale
+The nature and strength of the lateral or along-isopycnal eddy stirring in the ocean depends on the length scales under consideration. At length scales greater than the size of dominant mesoscale eddies the stirring can approximately be expressed as enhanced molecular diffusion with a constant eddy diffusivity that is O($1000m^2/s$) \citep{zhurbas2003lateral, koszalka2011surface, lacasce2014, balwada2016, roach2016horizontal, roach2018global}. On the other hand, at scales smaller than the typical mesoscale eddies, this eddy diffusivity generally increases with the length scale \citep{richardson1926atmospheric, okubo1971oceanic}. At these scales two qualitatively different regimes are possible, which can be categorized based on how stirring influences the rate of Lagrangian particle pair spreading or relative dispersion --- non-local and local dispersion \citep{bennett1984relative}. Non-local dispersion occurs when the kinetic energy spectrum is steeper than $k^{-3}$; in this case stirring is dominated by the largest eddies. Under local dispersion, in contrast, stirring is dominated by eddies comparable in scale to the size of the cluster or tracer patch. Knowledge about which regime is active in the ocean can help to define parameterizations of stirring for use in eddy-permitting models \citep{cushman2008beyond, kampf2016towards}.
+
+% Observations of stirring regime are still evolving
+Observational characterization of the stirring regime is practically difficult, and requires dense sampling with pairs of Lagrangian instruments, which is why most previous studies have focused on the surface ocean using surface drifters \citep{lacasce2003relative, koszalka2009relative, lumpkin2010surface, poje2014submesoscale, van2015pairwise, sanson2015surface, vera2016, Corrado2017, essink2019can}. These studies have indicated that a single universal stirring regime is not present everywhere in the surface ocean; some regions show non-local dispersion up to roughly the deformation scale and others show local dispersion over the same scale range. Sometimes different metrics also lead to contrasting results in the same region. The large-scale dispersion varies as well, with some suggesting a transition to diffusive spreading --- dispersion grows linearly in time --- \cite[e.g][]{koszalka2009relative} and other studies suggesting super-diffusive motion --- dispersion grows faster than linear in time --- most likely due to advection by the large-scale shear \cite[e.g][]{lacasce2003relative}. 
+
+Deep ocean studies of stirring, which are very rare, rely on sampling the flow using either an anthropogenic tracer (SF6) \citep{ledwell1998mixing,watson2013rapid} or RAFOS floats \citep{rossby1986rafos}. While a tracer is an excellent means for measuring diapycnal diffusivities \citep{ledwell2000evidence,watson2013rapid, ledwell2016dispersion}, sampling the details of the lateral spatio-temporal evolution of the tracer by ships is not usually possible and thus limits its usefulness for diagnosing the scale dependence of lateral stirring. RAFOS floats \citep{swift1994rafos}, which drift at depth and are acoustically tracked, can be used to characterize and quantify the properties of stirring by evaluating how rapidly float pairs disperse. We are aware of only two previous studies that reported on relative dispersion in the deep ocean \citep{lacasce2000relative, ollitrault2005open}, both in the North Atlantic Ocean at depths of about 1 km. \citet{lacasce2000relative} concluded the dispersion in the western Atlantic was either local or driven by mean flow shear up to scales of approximately 100km, while the particle pairs separated diffusively in the eastern Atlantic. \citet{ollitrault2005open} also reported local stirring between 40-300km, and some indications of non-local stirring at shorter scales. 
+
+% Summary paragraph about this paper. 
+In this study, we examine stirring at length scales of $5-100$ km and depths of $500-2000$ m in the Southeast Pacific Ocean sector of the Antarctic Circumpolar Current (ACC), using RAFOS floats deployed during the Diapycnal and Isopycnal Mixing Experiment in the Southern Ocean (DIMES) \citep{balwada2016}. The floats were deployed in pairs and triplets to resolve smaller scale dispersion. This work builds on the studies by \citet{tulloch2014direct, lacasce2014, balwada2016}, which had reported on the eddy diffusivity in the DIMES experiment using both tracer and float observations at scales larger than the dominant mesoscale eddies. 
+
+% Summary paragraph about metrics
+To quantify the flow variability and stirring in the DIMES region we use several different metrics. We start by quantifying the flow variability at different scales using Lagrangian frequency spectra and $2^{nd}$ order structure functions in section 3. Stirring or particle dispersion is a result of the integrated effect of the flow variability, and is usually quantified and categorized as local vs non-local using metrics that either quantify temporal evolution or spatial structure (Table 1). The pair separation probability distribution function (PDF), and its moments, e.g. the relative dispersion and kurtosis, fall under the time-based metrics. These quantify the temporal evolution of the separation between pairs of particles and are discussed in section 4. The relative diffusivity, discussed in section 5, quantifies the rate of change of relative dispersion. As the averages are conditioned by separation, the relative diffusivity is a space-based metric. 
+Finite size Lyapunov exponent (FSLE), discussed in section 6, quantifies the rate at which particle pairs at different scales separate and is also a space-based metric. 
+Space-based metrics advantageously employ more and more pairs at larger separations; since the same pairs usually visit the larger scales more often than the smaller scales. In contrast, the time-based metrics are limited at all time by the number of samples at the initial pair separation.
+A summary of the different metrics is presented in Table 1, and Table 2 provides a quick overview of the results.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Data and Methods}
+\subsection{Lagrangian Trajectories}
+We examine two sets of Lagrangian trajectories: RAFOS floats released during the DIMES experiment (\cite{balwada2016}), and numerical particles advected in a MITgcm simulation of the Southeast Pacific Ocean and Scotia Sea  (\cite{lacasce2014}). 
+
+The DIMES RAFOS floats, referred to as the floats in the rest of the manuscript, were released along the $105^o$W meridian and between $54^o - 60^o$S, spanning the ACC at this location (Figure \ref{fig:intro}a). Acoustic tracking was used to determine their position once per day. The motion of the floats was primarily along isobars, and they were spread over a depth range of 500 - 2000 m, with the greatest sampling near depths of 750m and 1400m (Figure \ref{fig:intro}c). In this study we grouped the floats into two depth bins: shallow (500-1000 m) and deep (1000-1800 m), and only considered segments of the trajectories to the west of $80^o$W. The data to the east of $80^o$W, in the Scotia Sea, are not considered because the floats there rarely came within $100$km of each other.
+
+The MITgcm numerical particles, referred to as particles in the rest of the manuscript, are the same as those used in \cite{lacasce2014} (Figure \ref{fig:intro}b). The velocity fields used to advect the particles were simulated using the MITgcm with a horizontal resolution of 5km and 70 vertical levels. The model domain spanned $160^o - 20^oW$ and  $75^o -35^oS$, and was forced at the lateral boundaries by the Ocean Comprehensive Atlas (OCCA, \cite{forget2010mapping}) and at the surface by ECMWF ERA-Interim 6h wind fields \citep{berrisford2009era}. Details of the simulation and comparison to hydrography can be found in \cite{tulloch2014direct}. 100 particles were released along $105^oW$ at 20 vertical levels, between $55^o-60^oS$, at the numerical grid separation of 5km every 10 days for 120 days - 12 releases totaling to 1200 particles. The particles were advected using one-day averaged 3D velocity fields, since the model had negligible variance at faster time scales. Correspondingly, the particle positions were saved at a daily resolution. This provided 1200 particle trajectories at each of the 20 levels from 300 m to 3000 m. 
+
+The velocity time series following the float and particle trajectories was calculated using discrete forward differences ($u(t) = \frac{x(t+\delta t) - x(t)}{\delta t}$), except at the end points where a backward difference was used. As the temporal resolution of the floats ($\delta t$) is 1 day, the variability at periods faster than 1 day (the inertial period is 14 hours in this region) is aliased to longer periods. 
+
+\subsection{Pair Selection}
+In this study, two different kinds of metrics are considered; time-based metrics average at fixed time and space-based metrics average at fixed spatial scales. The time-based metrics, such as relative dispersion, are a conditional average over pairs with the same initial pair separation ($r_0 \pm \delta$), and this averaging is indicated by $\left<. \right>_{r_0}$. The space-based metrics, such as structure functions, relative diffusivity and finite size Lyapunov exponents, average over all pairs that pass through a separation bin, irrespective of the initial pair separation, and this averaging is indicated by $\left<. \right>$. 
+
+Selecting pairs for time-based metrics conditioned on initial separation ($\left<. \right>_{r_0}$) is trivial in the numerical model because the particles were initialized on a discrete grid. We use particle pairs that were initially released at the same depth and at a particular $r_0$. When considering the observations, a few choices need to be made due to the following considerations: the floats are not released on a uniform grid, the floats are not all at the same depth due to slight irregularities in instrument ballasting, and there are some gaps in the float time series due to tracking problems. 
+
+When analyzing the floats, we use pairs that might be an original pair, a pair released together, or a chance pair, a pair that happens to pass in close proximity ($r_0 \pm \delta r$) due to the flow, and we do not distinguish between the two in the rest of this study \citep{morel1974relative, lacasce2000relative}. We chose $r_0$ to be relatively large to ensure that sufficient number of pairs are available; this caused most pairs to be chance pairs as most original pairs were released at smaller initial separation. In some cases a pair time series might return to a separation of $r_0$ at a later time; we considered this to be the origin of a new chance pair time series if this return happened at least 25 days after the first time the pair members were $r_0$ apart. However, instances of this were rare and did not contribute significantly to the samples used in this study. 
+We use pair time series with a length of 100 days, since the pair velocities generally decorrelate before that time (shown later).
+Any pair with less than 25 days of data during this 100 day period is discarded. Finally, to minimize the impact of vertical shear on the separation rates we divided the floats into a shallow set (500-1000 m) and a deep set (1000-1800 m), and only considered pairs with trajectories vertically within 200 m of each other. 
+
+Two initial float separation sets, 10-15 km and 30-35 km, were chosen to allow for sufficient sampling. The first baroclinic deformation radius in this region is approximately 15 km \citep{chelton1998geographical}, hence the smaller initial separation set partially sampled this scale (Figure \ref{fig:intro}c-e). The shallow sets (500-1000 m) contain approximately 50 and 100 pairs in the two $r_0$ bins, and the deep sets (1000-1800 m) contain approximately 90 and 180 pairs in the two $r_0$ bins. The number of pairs in each set did not vary substantially over the course of the 100 days considered here. Most pairs evolved at vertical separations of less than 50 m. Since most of the strong vertical shear in the interior ocean is associated with high-frequency wave-like motions that do not cause much lateral dispersion, we anticipate the impact of this high frequency vertical shear on most of the dispersion metrics to be small. Further, the mean vertical shear in this region is approximately $O(10^{-4}s^{-1})$ \citep{balwada2016b}, which can result in a net dispersion on the order of $10km^2$ in 10 days and $10^{3}km^2$ in 100days, which is negligible compared to the observed relative dispersion (Figure \ref{fig:rel_disp}).
+
+The corresponding particle analysis was performed on particle pairs that were released at initial separations of 11.1km and 33.3km. There are 20 sets of model particles released between 500-2000m and each set was composed of between 1100-1200 pairs. In most of the sections we focused on particles released at depths of 750m and 1500m. These set of particles are qualitatively similar --- have similar time scales and scaling relationships --- to the shallow and deep sets of floats, but an exact quantitative match should not be expected. In section 3, where we quantify the variability, we selected depths that enclose the two sampled ranges, 500 and 900m corresponding to the shallow set and 1100 and 1700m corresponding to the deep set.
+
+For all space-based metrics, which parse data along a separation axis ($\left< . \right>$), we defined separation bin edges as $r (n) = a^n r (0)$, where $a = 1.4$ and $r (0) = 1$ km. For floats, we only used pairs that were separated by less than 100m in the vertical. The number of float pairs in each bin for the shallow and deep set are shown in Figure \ref{fig:intro}f. The number of pairs increase from less than 100 at the smallest separation to close to 10,000 at separations of 300km, with the deeper set having more pairs. For the particles more than 1000 pairs were available for each separation bin (not shown).  
+
+All \textit{error bars} in this study are derived using the bootstrapping algorithm. We estimate the metric 1000 times, performing random draws with repetition, and use the 5$^\text{th}$ and 95$^\text{th}$ percentiles as the limits of the error bars.
+
+\section{Temporal and Spatial Flow Variability}
+In this section, we quantify the distribution of the kinetic energy at different temporal and spatial scales. This will provide a helpful context to the stirring metrics that will be discussed later.
+
+\subsection{Rotary Lagrangian Frequency Spectra}
+Rotary spectra decompose the power in the velocity time series into counterclockwise (positive frequencies) and clockwise (negative frequencies) motions at different time scales \citep{thomson2014data}, which correspond to anticyclonic and cyclonic motions in the Southern Hemisphere respectively. Here we perform this spectral decomposition on the velocity following the Lagrangian trajectory, using trajectory segments of 120 days and the multitaper method \citep{lilly2019jlab}. 
+
+The float rotary spectra show a plateau at low frequencies, transitioning to a power law behavior with slope of about -4 at intermediate frequencies (Figure \ref{fig:variability} a,b). At frequencies higher than 1/10 days$^{-1}$ a much flatter power law is observed. This flattening of the spectra at high frequencies can potentially be attributed to internal waves, near inertial waves (NIWs), tides, which have been aliased to these frequencies, and some contributions from the position tracking errors. The cyclonic and anticyclonic components of the float spectra are almost indistinguishable, with no preference for a particular polarization, and the spectral energy at the shallower depths is  higher than at greater depths. 
+
+At the lower frequencies, the behavior of the particle spectra is similar to the float spectra, with the low frequency plateau from the observations lying within the range of energy levels from the model at comparable depths 
+(Figure \ref{fig:variability}a,b). A power law regime, with a slope of approximately -5, extends from intermediate to high frequencies.
+Thus, the model spectra lacks the high frequency flattening seen in the observations, which is a result of limited model resolution and the daily averaged velocities used to advect the particles.  
+
+
+\subsection{Longitudinal Velocity Structure Function}
+Second order velocity structure functions represent flow correlations across spatial scales, and are related to the kinetic energy spectra \citep{babiano1985structure, lacasce2016estimating}. The longitudinal second order structure function is defined as:
+\begin{equation}
+    S2_{ll}(r) = \left< (\delta \mathbf{u}(r). \mathbf{\hat{r}})^2\right>,
+\end{equation}
+where $\delta \mathbf{u} (r) = \mathbf{u}(\mathbf{x} + r) - \mathbf{u}(\mathbf{x})$ is the velocity difference between two particles separated by distance r, $\mathbf{\hat{r}}$ is the unit vector connecting these two particles. 
+We assume homogeneity and isotropy to drop the dependence on $\mathbf{x}$ and $\mathbf{\hat{r}}$ respectively. 
+
+The second order longitudinal structure function is related to the longitudinal frequency-wavenumber spectrum ($E_{ll}(k, \omega)$) via, 
+\begin{equation}
+    S2_{ll}(r) = 2\int_0^\infty \left[ \int_0^\infty E_{ll}(k, \omega) d\omega \right] (1- J_0(kr)) dk, 
+    \label{eqn:S2}
+\end{equation}
+where $k$ is the horizontal wavenumber, $J_0()$ is the zeroth order Bessel function. Thus $S2_{ll}(r)$ has contributions, filtered by the Bessel function, from all wavenumbers and frequencies.
+If the wavenumber energy spectrum follows a power law ($E_{ll}(k) = \int_0^\infty E_{ll}(k, \omega) d\omega \sim k^{-\alpha}$) over a long enough range of scales and $1<\alpha<3$, then the integral is dominated by wavenumbers near $k \sim 1/r$  and the structure function follows a power law ($S2_{ll}(r)\sim r^{\alpha-1}$). While, if $\alpha>3$ then $S2_{ll}(r)\sim r^{2}$ for all n \citep{bennett1984relative, balwada2016b}. At scales where the velocities are uncorrelated the structure function is constant and equals twice the velocity variance.
+
+Both shallow and deep float $S2_{ll}$ (Figure \ref{fig:variability}c,d) approach a constant at scales larger than approximately 200 km, with this length scale being slightly larger for the shallower floats. The kinetic energy level, the large scale constant value of $S2_{ll}$, observed by the shallower floats is approximately 3 times greater than the deeper floats. For the shallow floats, $S2_{ll}$ follows a power law of approximately $r^1$ between separation of 20-100km, and becomes flatter at smaller scales. For the deep floats $S2_{ll}$ follows a power law that is slightly flatter than the shallower floats, and closer to $r^{2/3}$. 
+
+In contrast, the model structure functions are similar to those expected 
+for a flow with a kinetic energy spectrum steeper than $k^{-3}$, with a power law behavior of $r^{2}$ at small scales and transitioning to uncorrelated motions at scales larger than about 100-200km. The kinetic energy level decreases with depth similar to observations.
+
+Thus the structure functions also indicate energy at small scales present in the observations but not in the model. This is true for scales less than roughly 20 km and for times less than about a week.
+
+\section{Relative Dispersion and Kurtosis}
+\subsection{Theory} 
+The characteristics of the stirring are encoded in how the separation between particle pairs evolves, and can be quantified by considering the evolution of pair separation PDF and its moments: relative dispersion (2nd moment), which is a measure of the size of the tracer cloud, and kurtosis (normalized 4th moment).
+
+The relative dispersion, the mean square pair separation, evolution can be derived using purely kinematic arguments \citep{babiano1990relative}.
+These are based on the relative diffusivity, the  the derivative of the relative dispersion ($\overline{r^2}$), 
+\begin{equation}
+\begin{split}
+\kappa(t | r_0) & \equiv \frac{1}{2} \frac{d \overline{r^2} (t | r_0)}{dt} \\		       & = \left< \mathbf{r}_0 \cdot \delta \mathbf{V}(t | r_0) \right>_{r_0}  + \int_0^t \left<\delta \mathbf{V}(t | r_0) \cdot \delta \mathbf{V}(\tau | r_0)\right>_{r_0} d\tau,
+\end{split}
+\label{eqn:rel_diff}
+\end{equation}
+where $\delta \mathbf{V} (t | r_0)$ is the relative velocity of a pair, and the dependence on the initial condition $r_0$ is explicitly noted. For flow randomly seeded with particles, the correlation of the first term of the RHS is typically small, as it was for both particles and floats (not shown). At short times ($t\rightarrow0$), equation \ref{eqn:rel_diff} is approximated as $\kappa(t|r_0) \approx t S2_{ll}(r_0)$, and the relative dispersion grows ballistically ($\overline{r^2} = r_0^2(1 + C_1t^2)$, where $C_1$ is a constant proportional to the total enstrophy). At large times ($t\rightarrow\infty$), the relative velocities are uncorrelated ($\left<|\delta \mathbf{V}(\infty )|^2\right>_{r_0} = 4 KE$). If the integral of the time correlation of the relative velocities converges, then the relative dispersion grows linearly  ($\overline{r^2} \sim t$) as for a diffusive process \citep{taylor1922diffusion}.
+
+Of primary interest are the scales at intermediate times, when pair separations lie in the inertial range and pair velocities are still correlated. Here, the stirring properties can be well quantified using the pair separation PDF, from which the relative dispersion derives. The separation PDF can be modeled using a Fokker-Plank (FP) equation \citep{richardson1926atmospheric,bennett2006lagrangian}, 
+\begin{equation}
+    \frac{\partial}{\partial t} p = \frac{1}{r} \frac{\partial}{\partial r} \left(r \kappa  \frac{\partial}{\partial r} p\right),
+\label{eqn:PDF}
+\end{equation}
+where $p(r,t)$ is the pair separation PDF, and $\kappa (r)$ is a diffusivity as a function of separation $r$. The $n^{th}$ raw moment of the PDF is defined as $\overline{r^n} (t) = 2 \pi \int_0^\infty r^{n+1} p (r,t) dr$. This equation can be solved for the turbulent inertial ranges \citep{lacasce2010relative, graff2015relative}, assuming all particle pairs have the same separation initially. 
+The inertial range slope enters via the relative diffusivity ($\kappa(r)$), which can be inferred from scaling.
+For shallow-sloped KE spectra, where $1 <\alpha <3$, the diffusivity scales $\kappa (r)  \propto r^{(\alpha + 1)/2}$, and the dispersion is characterized as "local". For 
+steeply sloped KE spectra, $\alpha \geq 3$, the relative diffusivity scales as $\kappa(r) \propto r^{2}$, and the dispersion is "non-local". When solving the FP equation, it is assumed the same diffusivity applies across all scales. 
+We list the analytical expressions for the PDF, the relative dispersion and kurtosis for the non-local regime, the Richardson regime (a particular local regime), and the diffusive regime in Table 1. 
+
+\subsection{Correlation and Isotropy from Floats and Particles}
+Correlated pair velocities are expected at scales smaller than those of the largest eddies. We define a pair velocity correlation coefficient, 
+$
+    \rho (t|r_0) = \frac{\left< \mathbf{u}_1(t) \cdot \mathbf{u}_2(t)\right>_{r_0}}{\left<|\mathbf{u}_1(t)|\right>_{r_0}\left<|\mathbf{u}_2(t)|\right>_{r_0}},
+$
+which can vary between -1 and 1. The subscripts on the velocity correspond to two members of the pair. As expected, $\rho (t| r_0)$ for floats and particles generally decreases as a function of time, and the maximum value of $\rho$ decreases as a function of initial separation (Figure \ref{fig:corr}a,b). Moreover, the rate of decrease is more rapid for the shallower sets than the deeper sets.
+%as the flow is more energetic at shallower depths.
+
+Alternatively the correlation can be visualized as a function of spatial scale by plotting $\rho (t|r_0)$ against the corresponding mean pair separation ($r^* = \sqrt{\overline{r^2}(t|r_0)}$) \citep{koszalka2011surface, graff2015relative}. %Transforming from time to $r^*$
+This causes all the $\rho (r^*)$ curves to approximately collapse together (Figure \ref{fig:corr}c), suggesting that the decrease in correlation over time is a result of pairs exiting the range of length scales over which the flow is correlated. This explains why the correlation drops more rapidly for the shallower depths, as the particles disperse faster there. The collapsed curves fall below 0.5 at a length scale ($r^*$) of approximately 60-70km. 
+
+Most relative dispersion theory assumes the flow is isotropic. We quantify isotropy as a ratio of the square root of the mean zonal separation to the square root of the meridional separation ($|r^*_x|/|r^*_y|$)\citep {morel1974relative}; this is one if the zonal and meridional spreading is the same. For the shallow floats and particles the ratio exceeds 1 after about 50 days (Figure \ref{fig:Iso}a) and at length scales greater than 100 km (Figure \ref{fig:Iso}c), while for the deeper sets the ratio stays close to 1 over 100 days (Figure \ref{fig:Iso}b). The only exception is the shallow float set with $r_0 \sim 10-15$km that shows enhanced zonal dispersion after only 10 days (though there are fewer than 50 pairs in this group). The particles always exhibit a small ratio for the first few days, which is due to the particles being deployed along a longitude line. Thus the dispersion is nearly isotropic at scales where the velocities are correlated. Isotropy is discussed further in the section on relative diffusivity (section 5b), where we show more conclusively that the flow is isotropic at length scales smaller than approximately 100km.
+
+\subsection{Relative Dispersion and Kurtosis from Floats and Particles} 
+Due to the small number of float pairs, it is difficult to draw conclusions about PDFs themselves. The float PDFs are statistically indistinguishable from both the non-local and Richardson (local) theoretical PDFs (Table 1), while the particle PDFs are suggestive of non-local dispersion. Details are given in appendix B.
+
+The relative dispersion increases in time, showing that on average the floats and particles disperse (Figure \ref{fig:rel_disp}a,d). The dispersion for the floats and particles is very similar over the first 100 days, suggesting the additional high-frequency and small-scale variability in the ocean does not contribute much dispersion. At the shallower depth the relative dispersion increased to $300^2$km$^2$ by the end of the 100 days for both initial separations, while the deeper relative dispersion is less. Towards the end of the 100 days the dispersion for most sets has transitioned to a diffusive linear growth.
+
+Under Richardson dispersion, the squared separations would grow cubically in time. However, this asymptotic limit can not be achieved in the ocean because of the finite size of the inertial ranges. The exact expression for the Richardson dispersion at all times was derived in \citet{graff2015relative} (presented in Table 1), and is relatively complex. However, we found (not shown) that the less rigorous but simpler expression, $(r_0^{2/3} + C_2t)^3$, derived by \citet{ollitrault2005open} is visually indistinguishable from the more complex expression, when both are plotted in a compensated form: ($\overline{r^2}^{1/3} - r_0^{2/3}$). This form, based on the expression from \citet{ollitrault2005open} removes the dependence on initial condition and has a slope of one on a log-log plot under Richardson dispersion. 
+This compensated relative dispersion from the floats and particles does not show a distinct linear range (figure \ref{fig:rel_disp}c, f). Generally, the growth rate is faster than the expectation from Richardson dispersion initially and then slower. A short range from approximately 6-20 days for the shallower sets and 15-30 days for the deeper sets shows a growth rate that might be comparable to Richardson dispersion, but it is more likely that this is simply a transition period. The shallow float set with $r_0 \sim 10-15$km is a slight exception, since it approximately matches with Richardson dispersion from 2-40 days (also true for kurtosis discussed next). As noted though this set has few pairs, and thus the approximate match to Richardson dispersion may not be robust. 
+
+If the dispersion were non-local, it would grow exponentially in time. The relative dispersion, for both floats and particles, increases rapidly for the first 10-25 days and then settles into a slower growth afterwards (figure \ref{fig:rel_disp} b,e). The initial growth is not distinguishable from exponential. For example, the relative dispersion for the shallow particles with $r_0=11$km between 4-15 days suggests that exponential growth occurs up to approximately length scales of  $\sim 5r_0 \approx 55$km. Similar phases of exponential growth are also seen at other depths for the particles, and to some degree for the floats. This rapid growth ends when the mean separation reaches $r^*\sim 50-90$km for all cases considered, and is thus shorter for larger $r_0$. The relative dispersion from the particles for the first 3-4 days shows a slightly slower growth rate, which is likely a result of dependence on initial conditions and a short phase of ballistic growth (see further discussion in Appendix B).
+
+Under non-local dispersion, the kurtosis also grows exponentially, while it asymptotes to 5.6 under 2D Richardson dispersion; it asymptotes to 2 if the dispersion is diffusive (Table 1) \citep{lacasce2010relative}. Local dispersion with a spectral slope between -3 and -5/3 can also result in kurtosis surpassing 5.6 \citep{foussard2017relative}. 
+
+The kurtosis from the floats and particles evolves similarly, with a rapid initial increase for approximately 10-20 days followed by a decay towards 2 (Figure \ref{fig:kurt}). The kurtoses do not rise to very large values 
+%even under non-local stirring, as demonstrated by the particles, 
+because $r_0$ is large. The pairs in the tails of the PDFs transition to the uncorrelated regime at about 10-20 days (Figure B1), so that the kurtosis could not rise to large values even under exponential initial growth. 
+%Since the kurtosis can not grow infinitely due to the finite time spent by pairs in the inertial range, some ambiguity remains when considering the kurtosis as to whether the dispersion is non-local or local with a spectral slope between -3 and -5/3. 
+Thus one cannot distinguish local or non-local dispersion at small scales based on the kurtosis. But the similarity between float and particle kurtoses suggest the floats disperse similarly to the particles.
+%which we know undergo non-local dispersion by design.
+
+Thus the displacement moments from the floats and particles are similar within the errors. However, it is difficult to distinguish the exact type of dispersion occurring at small scales. 
+%results from the moment analysis of the PDFs are to some extent ambiguous, and it is hard to precisely categorize the turbulent stirring. One of the main reasons this is the case is that the relative dispersion and kurtosis, in particular at intermediate and longer times, average over a wide range of length scales. This results in a less reliable metric when only a short part of the inertial range has been sampled. Another reason for caution in identifying growth behavior based on relative dispersion is that for short duration different scaling relationships can not easily be distinguished; example an exponential function can be fit to a short range of a cubic function, or vice-versa, by varying the free parameters. 
+%The time-dependent metrics considered in this section are often quite noisy when applied to observational data. This is due to the 
+This is likely due to the relatively large initial separations, $r_0$. 
+%conditioning on initial pair separation ($r_0$) significantly limiting the number of pairs that can be used. This limitation can sometimes be alleviated by evaluating 
+Next we consider space-based metrics, which average without any conditioning on $r_0$. 
+%Relative diffusivity and finite size Lyapunov exponents are such metrics, and will be discussed in the next two sections.
+ 
+\section{Relative Diffusivity}
+Now we examine the relative diffusivity. The initial separation, $r_0$, is used to assign the spatial scale, so that $\kappa(r) \approx \kappa(t|r_0)$ (equation \ref{eqn:rel_diff}). 
+%As such, the relative diffusivity is a spatial metric, and having more pairs at larger separations makes it statistically more robust than the temporal metrics at those scales. 
+We estimate $\kappa (r)$ using finite difference,
+\begin{equation}
+    \kappa (r) = \kappa (\triangle t/2|r_0) \approx \frac{d \overline{r^2}(\triangle t/2|r_0)}{dt} \approx \frac{ \overline{r^2}(\triangle t|r_0) - \overline{r^2}(0|r_0)}{\triangle t}.
+\end{equation}
+%which estimates the relative diffusivity over the time scale $\triangle t$. 
+It is possible to use different time spacings,
+$\triangle t$. 
+%This should apriori determine what $\triangle t$ should be, since integral time scales ($T_I(\kappa, \omega)$, equation \ref{eqn:rel_diff_infinity}) are not known precisely, but it should 
+%preferably be longer than the slowest integral time scale. Also, $\triangle t$ should not be too long because as time progresses the pairs disperse over a range of scales (Figure B1), and scales with disparate dynamics start to contribute to the estimate. 
+We will vary this to estimate the longer time estimate of relative diffusivity 
+%(equation \ref{eqn:rel_diff_infinity}) 
+and to filter 
+%waves that are aliased to time periods longer than the inertial period, 
+high frequency motions in the observations.
+It should also be small enough so that the diffusivity is less than the asymptotic value of twice the single particle diffusivity \citep{lacasce2008statistics}. The single particle integral time scale
+%, which is likely an overestimate of $T_I(\kappa, \omega)$, 
+for the region is approximately 5-6 days \citep{balwada2016}; as discussed below, this works well as a practical estimate of $\triangle t$.
+Further consideration about the link between second order structure function and relative diffusivity, effects of the high frequency motions, and theoretical guidance for varying $\triangle t$ is given in Appendix C. 
+
+We first examine the dependence of $\kappa(r)$ on $\triangle t$ using the model particles.
+%, for which the dispersion is non-local. 
+The diffusivities for the shallow and deep particles with $\triangle t = 1$day increase as $r^2$, up to scales of approximately 50-60km, in line with a steep spectrum. At larger scales the diffusivity flattens out. At still larger scales, the diffusivity increases again, approximately as $r^{4/3}$ (Figure \ref{fig:rel_diff}a). 
+This power law dependence for the particles between 6-50km is not very sensitive to $\triangle t$ up to moderate values, $\sim6$days for shallow and $\sim10$days for deep particles, but flattens out with larger $\triangle t$. This follows as pairs with smaller $r_0$ start to experience more uncorrelated motion and the relative diffusivity asymptotes to the large scale diffusivity (Figure \ref{fig:rel_diff}c). 
+Increasing $\triangle t$ to 6days increases the magnitude of the diffusivity for separations between 6-50km, because at 6days the pairs are sampling larger scales than $r_0$ with larger diffusivities, but this does not change the power law dependence significantly. The choice to plot the results hereafter using 6 days is a pragmatic one; the slope of the relative diffusivity of the shallow particles is not very sensitive within this time frame, and 6 days is similar to the single particle integral time scale for the floats in this region.
+
+The float-derived diffusivities exhibit a different dependence on $\triangle t$ (Figure \ref{fig:rel_diff}a,b,c). With $\triangle t$ = 1day, $\kappa (r)$ exhibits a power law dependence close to $r^{4/3}$ at scales smaller than 100km. This is consistent with $S2_{ll}(r)$ being flatter ($\kappa(r,t) \approx tS2_{ll}(r)$ at short times, \citet{babiano1990relative}). As $\triangle t$ is increased, the curve steepens (Figure \ref{fig:rel_diff}c), and over a range of intermediate values of $\triangle t$ agrees well with the power law of the particle diffusivity down to scales of 5km.
+%which suggests that the float and particle stirring is similar and non-local. 
+This suggests increasing $\triangle t$ acts as a filter, removing the high frequency motions that cause the relative diffusivity power law from the floats to be flatter than that of the particles at short times.
+%but do not contribute to stirring in an integrated sense. 
+As with the particles, when $\triangle t$ is increased further ($\triangle t>$ 15 days) the slope flattens, as the influence of the uncorrelated scales becomes more dominant. It should be noted that a perfect match between the relative diffusivity slope dependence on $\triangle t$ from floats and particles at these longer $\triangle t$ should not be expected, because the floats are spread over a depth range and the particle depths were chosen to only match the float depth approximately (section 2).
+
+%In terms of equation \ref{eqn:rel_diff_infinity}As discussed in Appendix C, integrating to more than a few integral timescales reduces the contribution of scales where the corresponding integral time 
+%($T_I(k, \omega) \approx \int_0^\infty R(k, \omega, \tau)$) is close to zero. 
+%The integral time scale associated with linear waves is zero, since they are extremely inefficient at producing any stirring or transport \citep{buhler2013strong, buhler2016particle, balwada2018submesoscale}. It is also well established that the oceanic wave field, formed of internal waves, NIWs and tides, contains a significant fraction of the kinetic energy \citep{ferrari2009ocean}, and often energizes the smaller spatial scales of motions more than the balanced geostrophic flows \citep{buhler2014}. Here these waves are aliased to periods longer than the sampling period of one day. Thus, we argue that the relatively flatter float relative diffusivity at short time, which is directly associated with $S2_{ll}(r)$ \citep{babiano1990relative}, is most likely the result of high frequency wave-motions, which do not have any integrated influence on dispersion and are thus filtered when $\triangle t$ is increased. We test this hypothesis in appendix A (Figure A1 d,e), showing that adding linear waves to the particle trajectories flattens the $S2_{ll}(r)$ and relative diffusivity at small $\triangle t$ and the non-local scaling can be recovered by using a larger $\triangle t$. 
+Thus the high frequency motions present in the observations are responsible for the diffusivity's weaker dependence on $r$ (local dispersion) when the evolution of the pairs over a short time period is considered. However, the diffusivity's dependence on $r$ steepens (non-local dispersion) when the evolution of the same pairs over a few days is considered; indicating that the smaller scales have a relatively weaker net impact as some of the higher frequency pulsation in separation averages out to zero. We find that wave-like motions are a likely process that can result in this observed behavior for the relative diffusivity, as detailed in Appendices A and C. 
+
+
+
+% zonal-meridional split of diffusivities 
+As the mean flow here is nearly zonal \citep{lacasce2014,balwada2016b}, the zonal and meridional diffusivities reflect the stirring along and across the mean flow. Using the longer differencing time ($\triangle t=6$ days), the zonal and meridional diffusivities for the floats and particles are very similar, suggesting isotropy up to roughly 100 km separations (Figure \ref{fig:rel_diff_parts}a,c). At larger scales, the zonal and meridional diffusivities diverge as the flow becomes anisotropic and pair velocities are uncorrelated. The zonal diffusivity continues growing with a scaling close to $r^{4/3}$. This anisotropic growth could be indicative of shear dispersion \citep{bennett1984relative,lacasce2008statistics}. At these scales of uncorrelated motion the meridional diffusivity approaches a constant value close to twice the single particle diffusivity estimate for the region \citep{lacasce2014, balwada2016}. At the correlated scales, the meridional relative diffusivity is an increasing function of separation scale and time scale ($\triangle t$) and is greater at the shallower depth (Figure \ref{fig:rel_diff_parts} b,d).
+
+Some studies (e.g. \cite{sinha2019modulation, sanson2015surface} most recently), estimate the scale dependence of relative diffusivity by differentiating the relative dispersion time series for a particular initial separation and assigning the mean separation ($r^*(t)$) as the spatial scale ($\kappa(r^*|r_0)$). Using this estimate (Figure \ref{fig:rel_diff}d), we were even unable to detect $r^2$ regime for the particles, possibly since the average occurs over a wider range of scales. This estimate was very noisy for the floats. 
+
+\section{Finite Size Lyapunov Exponents} 
+\subsection{Theory}
+Finite Size Lyapunov Exponents (FSLE) is an alternate way of quantifying stirring, and measures the average time taken ($\left<\tau (r) \right>$) for a pair of particles to grow in separation from scale of $r$ to $ar$, where $a>1$ \citep{artale1997dispersion}. FSLE ($\lambda$) is defined as
+\begin{equation}
+\lambda(r) = \frac{log(a)}{\left< \tau(r) \right>}.
+\end{equation}
+
+Theoretical scalings for FSLE can derived based on dimensional arguments. If the stirring is local and the energy spectrum follows a power law of $k^{-\alpha}$ ($\alpha<3$), then the FSLE scales as $\lambda(r) \propto r^{(\alpha-3)/2}$. Thus for Richardson dispersion the FSLE scales as $\lambda(r) \propto r^{-2/3}$. For $\alpha \geq 3$, the FSLE converges to a constant ($\lambda(r) \propto r^{0}$), and for uncorrelated diffusive spreading $\lambda(r) \propto r^{-2}$. These are summarized in Table 1.
+
+\subsection{FSLE from Floats and Particles}
+The floats were tracked daily, and the output of the particles was saved daily. This sets an artificial discretization on the possible values of $\lambda$, which would particularly be an issue at smaller $r$ when particle pairs will separate to $ar$ in one or two time steps. To alleviate this issue, we linearly interpolated the separation time series between the resolved times \citep{lacasce2008statistics,lumpkin2010surface, haza2014does}. The interpolation caused an increase in the value of the FSLE for floats, and also slightly steepened the power law behavior at smaller scales (not shown). The linear interpolation also increases the value of FSLE slightly for the particles, but does not change the power law behavior of FSLE (not shown). The FSLE estimated using the linear interpolation was not sensitive to the size of the bins (value of $a$, which is chosen to be $1.4$ here). 
+
+The FSLE from the floats shows an approximate $-2/3$ dependence at scales smaller than $100$km, at both the shallow and deep levels (Figure \ref{fig:fsle}). At scales larger than $100$km the FSLE slope becomes steeper, tending towards $-2$. The FSLE from the particles at scales smaller than $100$km is almost flat, and markedly different from the floats. At scales greater than $100$km the FSLE from particles is almost identical to that from floats. At the shortest scales, smaller than the model resolution, the particle FSLE slightly diverges from a constant, which is presumably a result of interpolation used in particle tracking. There is no qualitative difference between the results of the shallow and deep sets, except for the time scales being faster at shallower depth.
+
+The results suggest the floats experience local dispersion and the particles non-local dispersion 
+at scales smaller than 100km. Both exhibit diffusive spreading at larger scales. The time scale associated with the FSLE at small scales is 1 to 10 days, which is where the high frequency motions appear in the observations (section 2). 
+So these motions are likely associated with the local dispersion seen here. 
+
+We consider the effects of high frequency motion on the FSLE further in Appendix A. We show that wave energy at time scales shorter than a day can be aliased to scales of 1-10 days when the temporal resolution is a day; and this aliased energy can potentially cause the FSLE to appear local even when the dispersion is a result of non-local stirring. Thus, we cannot conclude based on the float FSLE that the dispersion is local, but the characterization of the particle FSLE being non-local is appropriate.
+
+\section{Discussion} 
+The Southeast Pacific Ocean sector of the ACC, between the mid-ocean ridge and Drake Passage, was sampled by a subset of DIMES RAFOS floats and simulated with an eddy-permitting model. We provide an observational perspective on turbulent stirring in the ACC at length scales comparable to and smaller than the mesoscale eddies, in one of the few observational studies that addresses relative dispersion in the deep ocean. The stirring is quantified using time-based and space-based metrics (summarized in Table 2).
+
+At scales comparable to and larger than the mesoscale eddies the pair velocities are uncorrelated and the dispersion is anisotropic. The meridional dispersion behaves like random walk and zonal dispersion behaves like shear dispersion. 
+The meridional relative diffusivity saturates at a value near 1000$m^2/s$, in agreement with single particle-based estimates \citep{balwada2016, lacasce2014, tulloch2014direct}. This is approximately two orders of magnitude larger than the relative diffusivity at scales smaller than 10km, in agreement with the estimates based on DIMES tracer roughness \citep{boland2015}.
+
+At scales smaller than the mesoscale eddies the pair velocities are correlated and the dispersion is isotropic. Under these conditions the stirring can be characterized as local, primarily influenced by eddies at the scales of the pair separations, or non-local, primarily influenced by eddies that are much bigger than the scales of the pair separations. Overall, we concluded that the RAFOS floats likely experienced non-local stirring at scales longer than a few inertial periods and approximately 5km in this part of the ocean, since at these scales their dispersion is broadly similar to that of non-locally dispersed model particles. 
+However, some important distinctions between the different time- and space-based metrics for the floats and particles are present. 
+
+The time-based metrics, relative dispersion and kurtosis, for the floats and particles are broadly consistent, but neither could conclusively categorize the dispersion as local vs non-local. This consistency is not completely expected, since the Lagrangian frequency spectrum and second order structure functions indicated that the floats experienced a flow field that was more energetic than the model, at scales less than roughly a week and 20-30 km. The main issue with the time-based metrics was that in an effort to have a sufficient number of samples, a relatively large initial separation had to be selected. Having a large initial separation results in the pairs dispersing to the uncorrelated scales relatively fast, which does not allow the distinct signatures of the dispersion regimes to emerge very prominently.
+%XXX does moderate here mean sufficient or minimal?
+
+The space-based metrics, relative diffusivity and finite size Lyapunov exponents (FSLE), indicated that the dispersion is local for the floats and non-local for the particles, when these metrics are computed at the sampling time scale of 1 day. For the relative diffusivity, which allows integration in time, we found that after integrating over timescale of 6 days the relative diffusivity from the floats had the same characteristics as the relative diffusivity from the particles at scales larger than 5km. This suggests that the highest frequency motions have little or no impact on dispersion. It is not possible to say from float trajectories alone, but it is likely that the high frequency range is dominated by near inertial waves (NIWs), internal wave continuum and tides. Independent observations suggest these high-frequency flows are abundant in the ACC \citep[e.g][]{ledwell2011diapycnal, waterman2013internal, kilbourne2015quantifying}. 
+Despite having super-inertial frequencies, this wave energy can be aliased into the float positions, which are sampled once a day.
+We showed in the appendix A that adding linear waves, which do not add any particle dispersion, to the non-locally dispersed model particle trajectories can make the space-based metrics to appear local at length scales that are 20-30 times the displacement amplitude of these waves. Integrating the relative diffusivity in time is found to be a practical way to recover the underlying dispersion characteristics. 
+
+%At these scales the time- and space-based metrics differ, with the latter indicating non-local dispersion for the particles and local for the floats. The relative dispersion on the other hand, a time-based metric, indicates non-local dispersion at small scales for both the floats and particles. Two other time-based metrics, the displacement kurtosis and the PDF, were inconclusive, due primarily to having too large initial pair separations.
+
+%The Lagrangian frequency spectra also differed between floats and particles. The float spectra revealed excess energy on time scales less than roughly a week compared to the particle spectra. Evidently this high frequency motion is behind the local dispersion seen at small scales in the spatial metrics. Such motion is lacking in the numerical model, with its 5 km horizontal resolution. 
+
+%What is the high frequency motion? It's not possible to say from float trajectories alone, but it's likely that the high frequency range is dominated by near inertial waves (NIWs). Independent observations suggest this is the case in the ACC \citep{ledwell2011diapycnal, waterman2013internal,kilbourne2015quantifying}. Despite having super-inertial frequencies, NIW energy can be aliased into the float positions, which are sampled once a day. Submesoscale vortices are expected to be weak at these depths, but could occur following interactions between internal waves and balanced flows \citep{thomas2019geophysical} or breaking waves \citep{sundermeyer2005stirring, polzin2004isopycnal} near deep critical layers over topography. 
+
+%% JH's notes
+%paragraph about internal wave dispersion
+%Young et al. (1983)
+%Garrett (1983)
+%paradigm of non-local dispersion with small scale diffusion due to internal waves + shear
+%Sundermeyer and Price (1999)
+%Shcherbina et al 2015. 
+%small scale diffusivity is order 1 m$^2$/sec
+%notes on submesoscale mixing near
+%topography
+%Bracco et al. 2016
+%Vic et al. 2018
+
+
+Linear waves have relatively little effect on lateral stirring of Lagrangian particles \citep{holmes2011particle}, but they can cause appreciable stirring for a tracer that can diffuse diapycnally \citep{young1982shear}. Previously it was shown that inertial oscillations have a similar minimal effect with surface drifter pairs, contributing substantial energy to the structure functions at small scales without impacting lateral dispersion \citep{vera2016}. 
+Local stirring at small scales has been observed in several studies, most comprehensively in the global drifter study of \cite{Corrado2017}. The evidence for this usually comes from space-based metrics. While it is certain that super-inertial motions affect energy spectra at submesoscales, it remains to be seen to what extent these motions affect lateral dispersion. At least in the present case, the effect appears to be small.
+
+%Given the observed discrepancy between the space- and time-based metrics, it is likely that 
+%NIWs constitute a significant fraction of the high frequency motion. We explore the effect of internal waves on the different metrics further in appendices A and C. 
+
+%One of the aims was to categorize the stirring as local, primarily influenced by eddies that are the size of the pair separation scales, or as non-local, primarily influenced by eddies that are much bigger than the pair separation scales. Table 2 presents a summary of the results from the different metrics considered in this study. The RAFOS float data analysis indicated that the stirring at time scales longer than few inertial periods in this part of the ocean is most likely non-local, and statistically similar to that of the model particles at those longer times. Metrics that are more sensitive to high frequency perturbations in the trajectory or the kinetic energy of the flow field showed a different behavior for the floats than the particles. However, this is likely to be a result of high-frequency wave motions from internal waves, NIWs and tides in the ocean that contain significant part of the kinetic energy but do not produce net dispersion.
+
+%The relative dispersion and kurtosis for the floats and particles are broadly consistent, but neither could conclusively categorize the dispersion as local vs non-local. The main issue with these metrics was that in an effort to have a moderate number of samples, a relatively large initial separation had to be selected. Having a large initial separation results in the pairs dispersing to the uncorrelated scales relatively fast, which does not allow the distinct signatures of the dispersion regimes to emerge very prominently. %short range of scales, due to the effective initial separation being too large, over which all the pairs experience the same dispersion regime; this does not allow for the expected ideal behaviors to be expressed.
+
+%The relative diffusivity is one of the most conclusive metrics used in this study. The relative diffusivity for the floats suggests non-local dispersion at scales $<$50km, but only after integrating over times scales ($5-6$ days), which are long enough to filter the influence of linear-waves and noise that do not produce any dispersion. At shorter time scales ($ 1-3$ days) the relative diffusivity for the floats followed a flatter power law than the model particles, which is in agreement with the longitudinal structure function ($S2_{ll}$) for the floats, reflective of the kinetic energy distribution, showing more small-scale variability than the particles. 
+
+%At larger scales where the pair velocities are uncorrelated the dispersion is anisotropic, with meridional dispersion behaving like random walk and zonal dispersion behaving like shear dispersion. This description is obviously a gross simplification of the details of the turbulent flow in this region and other lower kinetic energy regions found further away from topography in the ACC, which are usually composed of narrow zonal jets that might suppress or enhance lateral mixing depending on the time scales involved \citep{balwada2016b}. 
+
+%The finite size Lyapunov exponent (FSLE) indicated a marked difference between the RAFOS floats and the model particles, with the particles conclusively indicating that the dispersion is non-local while the RAFOS float results were indicative of local dispersion at scales smaller than 100km. We showed that the presence of aliased high-frequency waves, which do not result in dispersion, can result in local dispersion based on the FSLE up to length scales that are 20-30 times the displacement amplitudes of these waves \citep{haza2014does, vera2016}.
+
+Our conclusion of non-local dispersion from the floats is also consistent with the behavior of the tracer released during the DIMES experiment, which showed small irreversible diffusivity during the initial filamentation phase up to the scales of the mesoscale eddies, and growing irreversible diffusivity after the tracer filaments start to merge and form a large tracer cloud \citep{zika2020}. This is in line with the characteristics of stirring and filamentation in the deep ocean that was hypothesized by \citet{garrett1983initial}, and has also been observed in the North Atlantic during NATRE \citep{sundermeyer1998lateral}.
+
+%Local stirring at small scales has been observed in several studies, most comprehensively in the global drifter study of \cite{Corrado2017}. The evidence for this usually comes from space-based metrics. While it is certain that super-inertial motions affect energy spectra at submesoscales, it remains to be seen to what extent these motions affect lateral dispersion. At least in the present case, the effect appears to be small.
+
+%We cannot entirely discount the possibility that small-scale flows in the interior ocean can lead to some net dispersion, particularly at the smallest scales ($<$10km), and the true dispersion might be in some sense weakly local at these smaller scales. Some recent studies have identified that submesoscale flows with surface origins can penetrate appreciably below the mixed layer \citep{yu2019annual, siegelman2020energetic}. Strong submesoscale flows and eddies in interior ocean, without any surface association, can also potentially 
+
+%It seems that the influence of these small-scale flows, if they are present, is not a first order effect in the metrics and at the scales considered here, and if these scales are causing any significant stirring then it is not easily distinguishable from sampling noise and biases. Hence, it is also important to devise new metrics that might be more sensitive to the stirring at these scales. 
+
+We cannot entirely discount the possibility that small-scale flows in the interior ocean can lead to some net dispersion, particularly at the smallest scales ($<$10km), and the true dispersion might be in some sense weakly local at these smaller scales. Some recent studies have identified that submesoscale flows with surface origins can penetrate appreciably below the mixed layer \citep{yu2019annual, siegelman2020energetic}. Strong submesoscale flows and eddies in interior ocean, without any surface association, can also potentially result from interaction between internal waves and balanced flows \citep{thomas2019geophysical}, or result due to breaking waves creating mixed patches that then coalesce into pancake vortices due to an inverse cascade \citep{sundermeyer2005stirring, polzin2004isopycnal}, or be generated by flow interacting with topography and spinning off eddies \citep{srinivasan2019submesoscale, vic2018dispersion, bracco2016submesoscale}. It is also possible that isobaric floats, which do not follow water parcels in the vertical, can disperse away from the water parcels that they were originally tracking \citep{dewar1980effect}. However, it seems that the influence of these small-scale flows, if they are present, does not appear as a first order effect in the metrics and at the scales considered here, and if these scales are causing any significant stirring then it is not easily distinguishable from sampling noise and biases. Hence, it is also important to devise new metrics that will be more sensitive to the stirring at smaller scales. 
+
+Most current ocean models use diffusive parameterizations \citep{fox2019challenges}, even at scales where the stirring is not diffusive. Our hope is that the present observations will inspire new stirring parameterizations \citep[e.g.][]{kampf2016towards}, along with efforts in improvement of parameterizations of ocean energetics \citep{bachman2017scale, zanna2019}, for ocean models that partially resolve mesoscale eddies.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ACKNOWLEDGMENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\acknowledgments DB and KS acknowledge support from NSF OCE 1658479 and NSF OCE 1231803, and DB also acknowledges additional support from NSF OCE 1756882. JHL was supported by by the Rough Ocean project number 302743 under the Norwegian Research Council. The code for all the analysis and figures is shared at \url{https://github.com/dhruvbalwada/mesoscale_stirring_dimes_floats}, and the processed data can be made available at request to the corresponding author.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIXES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\appendix[A]
+\appendixtitle{Impact of Linear Waves on Space-Based and Time-Based Metrics}
+%Following \cite{vera2016}, we
+%test the effect of internal waves on the different metrics 
+Recent studies have shown that the space-based stirring metrics, which average the data into spatial bins, can sometimes result in misleading conclusions in the presence of linear waves, which do not cause any net particle dispersion \citep{vera2016}, or position errors in trajectories \citep{haza2014does}. For completeness, and because neither of the previous studies considered all the metrics together, we demonstrate the biases in conclusions about the stirring regime that can occur if monochromatic waves are added to the particle trajectories. 
+
+We modified the position vectors of the particle trajectory pair members ($\mathbf{X}_i$ and $\mathbf{X}_j$) by adding oscillations with a single frequency, 
+\begin{equation}
+\begin{split}
+    \mathbf{X}_i \rightarrow \mathbf{X}_i + A (\sin (\omega t+\phi), \cos (\omega t + \phi) -1) \\
+    \mathbf{X}_j \rightarrow \mathbf{X}_j + [A + B g(r)] (\sin (\omega t+\phi), \cos (\omega t+\phi) -1).
+\end{split}
+\end{equation}
+Here $A$ is the amplitude of the oscillation common to both members, and $B$ is the difference in the amplitude for the pair member, with
+%that is modulated in space and time by the functional dependence 
+the function $g(r)$ depending on pair separation ($r = |\mathbf{X}_i - \mathbf{X}_j|$). $\omega$ is the frequency and $\phi$ is the starting phase of the waves. %The added oscillations are meant to encompass the influence of linear wave motions, due to tides, NIWs and internal waves, in an extremely simplistic manner. The objective is not to develop a realistic model for the wave effects on the trajectories, but to simply show that wave motions that do not disperse particle pairs can easily impact metrics commonly used to the infer the characteristics of pair dispersion. Further, this is meant to be an Occam's razor approach - if all the small scale motions absent in the model were represented using only waves that do not disperse particles, could they make the metrics from the model looks similar to the observations within realistic ranges of wave parameters?
+$g(r)$ models the change in amplitude 
+%relative amplitude of the oscillations experienced by the two particles, 
+as the particles move away from each other. %and experiences waves with different amplitudes or phases. Since a theory predicting the signature of all wave classes as a function of separation is not available, we design 
+%The form of $g(r)$ is based on physical intuition. It goes to zero at small separations and 
+%We expect that the waves oscillate the particle pairs completely in sync when the separation is small, causing the oscillation of relative separation ($B g(r)$) resulting due to waves being negligible. As the particles separate, they start experiencing slightly different amplitudes and phases of the waves, and the oscillation of relative separation grow in magnitude. Above a certain length scale the particles are so far apart that the wave motions are completely uncorrelated, pair members are experiencing completely different waves, causing the oscillation of relative separation above this scale to be a constant. Here, this behavior 
+$g(r)$ is modeled as a power law with slope $n$ below a length scale $r_L$ and a constant at larger scales, 
+\begin{equation}
+    \begin{split}
+        g(r) & = (r/r_L)^n \quad \text{for} \quad r<r_L, \\
+             & = 1 \quad \text{for} \quad r\geq r_L.
+    \end{split}
+\end{equation}
+\cite{vera2016} employed a similar function in time rather than space, to mimic inertial oscillations in the Gulf of Mexico.
+%To account for variability 
+$A$ and $B$ are prescribed as random numbers from a uniform distribution that can vary between $0-2A_{max}$ and $0-2B_{max}$. $\phi$ was chosen as a random number on the interval $(0, 2\pi)$. $\omega$ was set to the local inertial frequency. We experimented with different choices of the parameters ($A_{max}, B_{max}, n, r_L$), and here we show results for four cases with physically reasonable values; $A_{max}=1.5$km, $r_L=50$km, $B_{max}=2$km and $3.5$km, and $n=0.3$ and $0.5$. These values result in waves that are reasonably close in magnitude to the NIWs measured in the same region and during the same time as the floats \citep{kilbourne2015quantifying}. %Also, the aim is not to find a choice of parameters that shows perfect agreement with observations, but rather to serve as examples of the range of effects that can be present. 
+Since the waves are monochromatic and the inertial frequency ($\sim 1/(14 hours)$) is greater than the sampling frequency ($\sim 1/(24 hours)$), the frequency spectrum shows a peak in a narrow band at a lower frequency where most of the wave signal has been aliased (Figure A1 a). We do not expect such a pronounced peak in the observations because the waves in the ocean are spread over a wider frequency range.
+
+The space-based stirring metrics estimated using the modified trajectories are qualitatively different from those estimated using the original trajectories (Figure A1 b,d,f). The addition of waves impacts the metrics significantly, with the range of influence depending on the strength and spatial correlation of waves. For example the FSLE for n=0.5 and B=3.5km (dashed purple line in Fig A1 f), indicates local dispersion up to scales that are $\sim20-30$ times larger than the relative amplitude of the waves. Thus, high frequency motions due to linear waves preferentially impact the space-based metrics.
+
+The time-based metrics are less affected: the relative dispersion (Figure A1 c), the separation PDFs and kurtosis (not shown). This is because the added oscillations cancel out when integrated over time, with the integration time depending on the noise magnitude; Figure A1 c shows that it takes approximately 5-8 days for the wave contributions to integrate out of the relative dispersion with $r_0=11$km. This initial influence on relative dispersion influences the relative diffusivity - $\kappa(r)$ (Figure A1 d) when $\triangle t$ is small. However, waves can be filtered by increasing the $\triangle t$ used to estimate the time derivative (Figure A1 e), which allows recovering the sub-inertial signal. We used the same filtering method in Section 5.  
+
+The objective here is not to develop a realistic model for the wave effects on the trajectories, but to simply show that wave motions that do not disperse particle pairs can easily impact some metrics commonly used to the infer the characteristics of pair dispersion. Further, this is meant to be an Occam's razor approach - if all the small scale motions absent in the model were represented using only waves that do not disperse particles, could they make the metrics from the model looks similar to the observations within realistic ranges of wave parameters?
+% In nature the wave motions are spatially correlated over the range of length scales considered in this study and have amplitudes that generally increase as a function of this length scale (e.g. \citet{garrett1972space}). Here we chose to not introduce this complexity, because the purpose of this appendix is simply demonstrative and not to build a realistic model of the variability. However, the experiments with increasing $L$ can be considered as suggestive of what might happen if a more complex model was used; instead of influencing all range of scales the higher noise results would be more localized towards specific large range of scales in metrics with $r$ as the axis. This would not change the main conclusion of this appendix, and also result in the metrics suggesting local dispersion when the actual dispersion is non-local.
+
+\appendix[B]
+\appendixtitle{Separation PDFs from Floats and Particles}
+The pair separation PDFs provide direct insight into how the turbulent flow stirs and disperses floats and particles. For easier visualization we show the cumulative distribution function (CDF), which is monotonic and varies between 0 and 1. 
+
+Qualitatively the evolution of the CDFs from the floats and particles is very similar (Figure B1). Only a small distinction is seen in the initial behavior, when the float CDFs are wider than the particle CDFs, which is simply a result of the float pairs having a spread over the initial separation bin.
+%This is a result of the initial condition for the float pairs being a finite separation bin (e.g. 10-15km) while the initial conditions for the particle pairs is precisely a delta function (e.g. 11.1km). 
+During the first 5-10 days the pair separations spread to both larger and smaller scales than $r_0$, and after this the pair separations increase on average as the trajectory clusters get more dispersed. Also during the initial phase the mean pair separation ($r^*$) coincides with the separation where the CDF is around 0.8$\sim$0.9, indicating that the long tails of the PDF are responsible for controlling the mean pair separation or dispersion. As time progresses $r^*$ starts to coincide more with smaller values of the CDF ($\approx 0.5\sim0.6$), as is expected for diffusive pair separation. Also, at most times during the evolution the pairs occupy 1-2 decades of spatial scales, suggesting that the pairs sample many different turbulent regimes, and the PDFs might only evolve like the theoretical solutions for short periods of time.
+%Also, at at most times during the evolution the pairs occupy 1-2 decades of spatial scales, for example on day 10 for the shallow float pairs with $r_0=10-15$ km the CDF samples all the way between 1-70 km. This suggests that the pairs potentially sample many different turbulent regimes at most times, and the PDFs might only evolve like the theoretical solutions for very short periods of time.
+
+We compare the PDFs of the float and particle pairs with the different theoretical solutions using the two sample Kolmogrov-Smirnov (KS) test, which is used to test the null hypothesis that the data from two sets of samples comes from the same continuous distribution \citep{berger2014kolmogorov}. It returns a KS statistic or p-value, where a large p-value ($> 0.05$) suggests that the null hypothesis can not be rejected, implying that the two sets of samples might have been sampled from the same distribution. Here our first sample set was the separations measured by the float or particle pairs, while the second sample set was 10000 randomly generated samples using the theoretical PDF (equations in Table 1).
+
+To generate the random samples from the theoretical PDFs, and compare against the float and particle PDFs, we need two parameters; $r_0$ and the growth parameters - $\beta$ for the Richardson or $T_L$ for the non-local dispersion. We do not assume apriori that one regime is a better descriptor than the other, instead we estimate the growth parameters corresponding to both regimes and then use the KS test to check how well do both the theoretical PDFs with the estimated parameters match the measured separation PDF.
+
+The parameter estimation is done by fitting the different theoretical relative dispersion (equations in Table 1) to the relative dispersion measured by the floats and particles (discussed in Section 4d). Similar fittings to estimate parameters were done by \citet{graff2015relative, vera2016}, where the fitting was done over the time period it took for the mean separation to increase to some chosen multiple of the initial separation. Here instead of fitting over a specified period, we fit over a range of times, and test the sensitivity of the parameters and PDF matching between theory and measurements to choice of the duration over which the fit is done. We fit both the theoretical curves during the period between day 0 to day $t_a$, where $t_a$ ranges from 3 to 50 days, using least squares fitting. The parameters are estimated even if the theoretical curve is a poor fit to the dispersion, but since these parameters also give a poor fit to the PDF they are ruled out by the KS test. %The estimated $T_L$ ranges between 30-150 days, with smaller values for shallower and smaller $r_0$ and a minima at an intermediate $t_a$ (Figure \ref{fig:fit_parameters}a). The estimated $\beta$ ranges between 5-50 m$^{2/3}/$days, with generally larger values for shallower and larger $r_0$ and a maxima at an intermediate $t_a$ (Figure \ref{fig:fit_parameters}b). 
+Using these estimated parameters (Figure B2) we calculated the KS statistic to compare the measured PDFs against theoretical PDFs (Figure B3). 
+%A KS statistic larger than 0.05 suggests that the measured PDFs could have been sampled from the corresponding theoretical PDF. 
+
+The comparison of the float PDFs to the theoretical PDFs suggests that for much of the time the PDFs measured by the floats could correspond to both the Richardson or the non-local PDF (Figure B3), as $t_a$ is varied. This result is particularly relevant when $r_0=10-15$km. The deep float set released with initial $r_0 = 30-35$km is a notable exception; for $t_a>20$ days a match to non-local regime is seen for approximately 10 days followed by a Richardson regime from approximately 10 to 70 days (Figure B3d and l). This suggests non-local stirring up to scales of 50km and Richardson like stirring at scales larger than 50km, where the length scale estimate is based on the mean separation curve in Figure B1d. A similar, but relatively less well defined behavior is also seen for the shallow float set released with the same initial $r_0$ (Figure B3b and j). 
+
+A comparison of the particle PDFs to the theoretical PDFs shows different behavior compared to the float PDFs. The particle PDFs are better determined due to having significantly larger number of samples ($>1000$ pairs), which results in very short periods over which the measured particle PDFs comply with any of the two theoretical PDFs. All combinations of $r_0$ and depths considered here show a range where the corresponding particle PDF matched with the theoretical PDF for non-local dispersion (Figure B3e-h). The Richardson PDF does not match the particle PDF at either of the depths for $r_0=11$km (Figure B3m and o), while a match over a very short time period is seen for $r_0=33km$ (Figure B3n and p). Notably none of the particle sets matched either of the theoretical PDFs over the first 5-10 days; this might be because the particles experienced ballistic dispersion during this time (shown next). Overall, these results suggest that the numerical model shows non-local dispersion as expected.
+
+The relative dispersion from the particles for the first 3-4 days also showed a slower growth rate than exponential (Figure \ref{fig:rel_disp} b and e), which is likely the result of dependence on initial conditions and ballistic growth. Trajectory pairs need to lose memory of their initial conditions for the canonical scaling relationships to be expressed \citep{babiano1990relative, nicolleau2004two, bourgoin2006role, foussard2017relative}. We quantify the rate of loss of memory of the initial conditions using a memory index, 
+$M(t| r_0) = \frac{\left<\mathbf{r} \cdot \mathbf{r_0} \right>_{r_0}}{r_0 \overline{r^2}^{1/2}},
+$
+which is a measure of correlation between the pair orientation relative to its initial orientation \citep{foussard2017relative}. Both floats and particles lose memory of their initial orientation as time progresses (Figure B4a). $M(t)$ for the floats is almost insensitive to the depth but depends strongly on $r_0$, while $M(t)$ for the particles varies more strongly with depth and is relatively insensitive to $r_0$. 
+
+During the initial phase, when pairs have not lost memory of their initial conditions, the pairs disperse ballistically ($\overline{r^2}(t) = r_0^2 (1 + C_1t^2)$)). Since different choices of depth and $r_0$ lead to different evolution of $M(t)$, we define a time scale, $\tau_m$, as the time it take for $M(t)$ to reach a value of 0.6, and rescale time using this time scale, $t_m = t/\tau_m$. The factor of 0.6 was chosen because it caused all the different rescaled relative dispersion curves ($\overline{r^2} (t_m | r_0) /r_0^2 -1$) for the particles to collapse together during this initial phase (Figure B4d), and also caused $M(t_m)$ to approximately collapse (Figure B4b). The particles show a perfect ballistic growth up to approximately $\sim 0.5t_m$, after which the different curves diverge. %After this ballistic phase the particle sets with $r_0=11$km showed a short phase of faster than quadratic growth before settling into a linear regime, while the particle sets with $r_0=33$km settled in a linear regime more quickly. 
+The range of this ballistic growth is observed approximately to length scales of $r^* \approx 2-3r_0$, which are within the numerical model's viscous range. \citet{foussard2017relative} also observed a similar ballistic range in a family of two dimensional numerical models, and noted that the departure from the ballistic regime seemed to occur around the time that the mean separation became comparable to the smallest length scales corresponding to the start of the inertial ranges. The re-scaled relative dispersion curves from the floats did not show such a clear range of quadratic growth, and were relatively noisy (Figure B4c), which is probably a result of high-frequency variability resulting in a very rapid loss of memory of initial conditions that is not properly quantified by $M(t)$.
+
+\appendix[C]
+\appendixtitle{Relative diffusivity and waves}
+Here we show that waves, which can be a dominant part of energy spectrum or the second order structure function at the submesoscales, may not impact the relative diffusivity. As $\kappa$ is related to the relative velocity auto-correlation, it can be expressed in terms of the wavenumber-frequency energy spectrum \citep{bennett1984relative, babiano1990relative}, as 
+\begin{equation}
+    \kappa(r,t) = 2\int_0^\infty \int_0^\infty \left[ E_{ll}(k, \omega)  (1- J_0(kr)) \int_0^t R(k, \omega,\tau) d\tau \right] d\omega dk.
+    \label{eqn:diff_spectrum}
+\end{equation}
+This equation is similar to equation \ref{eqn:S2} for the longitudinal second order structure function, except that it is weighted by the integral of the normalized wavenumber-frequency
+ Lagrangian energy spectrum $R(k, \omega, \tau)$. $R(k, \omega, \tau)$ is the Lagrangian autocorrelation for flows of wavenumber $k$ and frequency $\omega$, defined as $R(k, \omega, \tau) = U_{ll}(k, \omega , \tau) /U_{ll}(k, \omega , 0)$, where
+\begin{equation}
+    U_{ll}(k, \omega , \tau) = \frac{1}{(2\pi)^3} \int \int \int \left< u_l (\mathbf{x} + \mathbf{r}, t + T, t) u_l (\mathbf{x}, t , t - \tau)\right> exp(i \mathbf{k}\cdot \mathbf{r} + \omega T)  d^2 \mathbf{r} dT,
+    \label{eqn:lag_autocorr}
+\end{equation}
+and $U_{ll}(k, \omega , 0) = (2\pi k)^{-1} E_{ll}(k,\omega)$. $u_l (\mathbf{x}, t , t - \tau)$ is the longitudinal velocity at time $(t - \tau)$ of a trajectory $\mathbf{r}$ that passes through $\mathbf{x}$ at time t, while $u_l (\mathbf{x} + \mathbf{r}, t + T , t )$ is the longitudinal velocity at time $t+T$ at a location $\mathbf{x}+\mathbf{r}$. The purpose of having two time lags: an Eulerian time ($T$) and a
+Lagrangian time ($\tau$), in contrast to only a Lagrangian time as in \citet{bennett1984relative}, is to be able to do a spectral decomposition in frequency. The dependence on $\mathbf{x}$ and $t$ on is dropped assuming homogeneity in space and stationarity in time of the underlying Eulerian flow field. 
+
+At small times the $R(k, \omega, \tau)$ is 1, and $\kappa(r,t) \approx t S2_{ll}(r) $; implying that the relative diffusivity and second order structure function follow the same scaling \citep{babiano1990relative}. If time is longer than the integral time scales ($t>>T_I(\kappa, \omega)$) for all wavenumbers and frequencies but smaller than the uncorrelated limit, then the relative diffusivity follows, 
+\begin{equation}
+\kappa(r) = 2\int_0^\infty \int_0^\infty \left[  E_{ll}(k, \omega) T_I(k, \omega)  (1- J_0(kr))  \right] d\omega dk.
+\label{eqn:rel_diff_infinity}
+\end{equation}
+Here $T_I (k, \omega) = \int_0^\infty R(k, \omega, \tau) d\tau$ acts as a filter in equation \ref{eqn:rel_diff_infinity}, and modulates the extent to which the $E_{ll}(k,\omega)$ at each wavenumber and frequency impacts the stirring. The integral time scale that is usually estimated from the single-particle velocity autocorrelation \citep{lacasce2008statistics, balwada2016} is equivalent to the integral of $T_I(k,\omega)$ over all wavenumber and frequency. The estimate of relative diffusivity in equation 7 is the estimate that we are interested in, since we care about the integrated impacts of stirring.
+
+Since linear waves do not contribute significantly to stirring \citep{holmes2011particle, buhler2013strong}, the wavenumbers and frequencies composed primarily of waves will have $T_I \approx 0$ and the kinetic energy of these scales will not contribute to the relative diffusivity estimate in equation 7. \citet{balwada2018submesoscale} showed that a conceptually similar result is also true for the time-mean vertical tracer flux, where the wavenumber-frequency energy spectrum of the vertical velocity has a dominant peak at the super-inertial frequencies, as a result of linear waves, but the corresponding cross-spectrum of the vertical tracer flux has no contribution from these scales. Scaling based estimates of relative diffusivity (discussed towards the end of section 4a), which stem from 2D turbulence theory, assume the flow is not composed of any linear waves, and thus all of the kinetic energy spectrum contributes to the relative diffusivity.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REFERENCES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make your BibTeX bibliography by using these commands:
+\bibliographystyle{ametsoc2014}
+\bibliography{rel_disp}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Add table 
+
+\begin{table}[t]
+%\begin{landscape}
+%
+\small{\caption{Different dispersion regimes, conditions under which they are applicable, corresponding relative diffusivities (equation 3, 5, section 5, appendix C), PDF solutions to the Focker-Plank equation (equation 4, section 4, appendix B), the corresponding moments (section 4),  and the FSLE scalings (equation 6, section 6) \citep{graff2015relative, foussard2017relative}. The parenthesis note the equations and sections where the different metrics  are discussed. $\beta$ is proportional to the third root of the energy flux across scales or the energy dissipation rate, $I_n ()$ is the n-order modified Bessel function, $M()$ is the Kummer's function, $T_L$ is proportional to the inverse cubic root of the enstrophy dissipation rate or the inverse square root of the total enstrophy, and $C_n$ are constants.}}\label{t1}
+\begin{center}
+
+    \small{
+    \begin{tabularx}{1.05\textwidth}{
+    |>{\hsize=.46\hsize\linewidth=\hsize}X|
+     >{\hsize=.65\hsize\linewidth=\hsize}X|
+     >{\hsize=.35\hsize\linewidth=\hsize}X|
+     >{\hsize=1.4\hsize\linewidth=\hsize}X|
+     >{\hsize=1.3\hsize\linewidth=\hsize}X|
+     >{\hsize=.35\hsize\linewidth=\hsize}X|
+     >{\hsize=.3\hsize\linewidth=\hsize}X|}
+    \hline\hline
+        Dispersion Regime & Conditions of validity & Relative Diffusivity ($\kappa(r,t)$) & Pair Separation PDF ($p(r,t|r_0)$) & Relative Dispersion ($\overline{r^2(t|r_0)}$) & Kurtosis ($\overline{r^4}/\overline{r^2}$) & FSLE ($\lambda(r)$) \\
+    \hline
+        Ballistic & Initial time, Memory of initial conditions still present & $tS2_{ll}(r)$ & - & $r_0^2(1+C_1t^2)$ & - & - \\ \hline
+        Non-Local & Intermediate time, $E(k) \sim k^{-3}$ or steeper spectrum & $r^2/T_L$ & 
+        $\begin{aligned}
+        \frac{1}{4 \pi^{3/2} (t/T_L)^{1/2} r_0^2} \\ \exp\left( -\frac{(lnr/r_0 + 2t/T)^2}{4t/T_L}\right)
+        \end{aligned}$ &
+        $
+        r_0^2 exp \left(\frac{8t}{T_L}\right)
+        $
+        & $e^{8t/T_L}$ & $r^0$\\ \hline
+        Richardson (local) & Intermediate time, $E(k) \sim k^{-5/3}$ & $\beta r^{4/3}$ & 
+        $\begin{aligned}
+         \frac{3}{4 \pi \beta t r_o^{2/3}r^{2/3}} I_2 \left( \frac{9r_0^{1/3}r^{1/3}}{2 \beta t} \right) \\ \exp \left( -\frac{9(r_0^{2/3} + r^{2/3}) }{4 \beta t}\right)    
+        \end{aligned}$
+         & 
+         $\begin{aligned}  \frac{5!}{2} \left( \frac{4 \beta t}{9} \right)^3 M\left(6,3, \frac{9 r_0^{2/3}}{4 \beta t} \right) \\ \exp \left( -\frac{9 r_0^{2/3} }{4 \beta t}\right) \end{aligned}$
+         , \newline (visually similar to $(r_0^{2/3} + C_2t)^3$)\newline $\sim t^3$ (asymptotic) & 5.6 (asymptotic) & $r^{-2/3}$ \\ \hline
+        Diffusive & Long time, pair velocities are uncorrelated & Constant ($\kappa_2$) & 
+        $\begin{aligned}\frac{1}{2\pi\kappa_2t} \exp(-\frac{r_0^2 + r^2}{4\kappa_2t}) I_0(\frac{r_0r}{}2\kappa_2t) \end{aligned}$ 
+        & $4 \kappa_2 t$ (asymptotic) & 2 (asymptotic) & $r^{-2}$\\
+    \hline
+    \end{tabularx}
+    }
+\end{center}
+\end{table}
+
+
+
+\begin{table}[t]
+%\begin{landscape}
+%
+\small{
+\caption{Summary of metrics over scales at which pair velocities are correlated: spatial scales smaller than 100km and temporal scales smaller than 50-100days. The variability metrics are discussed in section 3, and the stirring metrics are discussed in sections 4 (relative dispersion and kurtosis), 5 (relative diffusivity) and  6 (finite size Lyapunov exponents).}}\label{t2}
+
+\begin{center}
+    \small{
+    \begin{tabularx}{1.\textwidth}{
+    |>{\hsize=.65\hsize\linewidth=\hsize}X|
+     >{\hsize=.65\hsize\linewidth=\hsize}X|
+     >{\hsize=.65\hsize\linewidth=\hsize}X|
+     >{\hsize=1.\hsize\linewidth=\hsize}X|
+     >{\hsize=1.\hsize\linewidth=\hsize}X|}
+    %{|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X|}
+    %{|c|m{10em}|c|c|c|c|}
+    \hline\hline
+        \textbf{Variability Metrics} & Domain and Averaging & Model Particles & RAFOS Floats & Summary/Comments \\
+    \hline\
+        Lagrangian Frequency Spectra & Frequency, averaging over all trajectories. & $\omega^{-5 \sim -4}$ & $\omega^{-4 \sim -3}$ ($\omega<1/10days$); $\omega^{-1 \sim -1/2}$ ($\omega>1/10days$) & Enhanced observed variability, likely due to waves aliased to sub-inertial frequencies. \\
+    \hline
+        $2nd$ Order Structure Functions & Space-based, averaging over all sample pairs in bin. & $r^2$ & $r^{2/3 \sim 1}$ & Enhanced observed variability, likely due to waves aliased to sub-inertial frequencies.  \\ 
+    \hline \hline
+        \textbf{Stirring Metrics} & & & &  \\
+    \hline 
+        Relative Dispersion & Time-based, averaging conditioned on fixed initial pair separation. & Non-local & Consistent with model within errorbars & Limited numbers of float pairs does not allow an unambiguous categorization, but similarity to particles is suggestive of non-local dispersion. \\
+    \hline
+        Kurtosis & Time-based, averaging conditioned on fixed initial pair separation. & Non-local & Consistent with model within errorbars &  Limited numbers of float pairs does not allow an unambiguous categorization, but similarity to particles is suggestive of non-local dispersion. \\
+    \hline
+        Relative Diffusivity & Space-based, averaging over all sample pairs in bin. & $r^2$; Non-local & $r^{4/3}$ ($\triangle t=1$day); $r^{1.5\sim 2}$ ($\triangle t = 6$days) Consistent with model within errorbar at larger $\triangle t$ & For floats a steepening of relative diffusivity power law with temporal averaging, to match the particle diffusivity, is highly suggestive of non-local dispersion.\\
+    \hline
+        Finite Size Lyapunov Exponents & Space-based, averaging over all sample pairs in bin. & $r^0$; Non-local & $r^{-1\sim -2/3}$; suggests local & Waves, which do not cause any dispersion, can cause FSLE to appear local even when the dispersion is non-local.  \\
+    \hline
+    \end{tabularx}
+}
+\end{center}
+
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIGURES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Enter figures at the end of the document, after tables.
+%%
+
+% intro figure
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=35pc, angle=0]{intro_fig.pdf}}
+	\caption{(a, b) 100 day trajectories of RAFOS floats (a) and a representative set of numerical particles from the MITgcm simulation (b) at different depths. The green dots indicate the position of the trajectory on the first day. The climatological Sub-Antarctic Front (SAF) and Polar Front (PF) are marked by dashed purple lines \citep{orsi1995meridional}. The gray colors represent the bathymetry, with the lightest contour color starting at -6000m depth, and increasing by 1000m intervals. (c) The mean longitude of the RAFOS float trajectory pair vs the number of days since 1 January 2009 at different depths. The first day when the pair formed - when the two trajectories came within the relative separation threshold - is marked as the green dot. (d) The mean pressure of the RAFOS float trajectory pair vs the mean difference in pressure of the two trajectories, averaged over the first 100 days. (e) The number of RAFOS float pairs as a function of time conditioned on initial separation and in different depth ranges. (f) The number of RAFOS float pairs as a function of separation distance in different depth ranges; for statistics where the time evolution of the pair is not tracked. The 'o' markers indicate the center of the separation bin.}
+	\label{fig:intro}
+\end{figure*}
+
+%variability figure
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=35pc, angle=0]{variability_figure.pdf}}
+	\caption{Mean Lagrangian frequency rotary spectra from the RAFOS floats between 500-1000m (a) and 1000-1800m (b). The Mean Lagrangian frequency rotary spectra from the model particles released at mean depths of 500 and 900m are shown in (a), and at depths of 1100 and 1700m are shown in (b) - the spectra at shallower depth in the model are more energetic. Power laws of $\omega^{-3}$ and $\omega^{-5}$ are also shown in (a) and (b). Second order longitudinal velocity structure functions for the RAFOS floats and model particles corresponding to the same depths as (a) and (b) are shown in (c) and (d) respectively. Power laws of $r^{2/3}$ and $r^{2}$ are also shown in (c) and (d).}
+	\label{fig:variability}
+\end{figure*}
+
+% correlation figure
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=38pc, angle=0]{corr_fig.pdf}}
+	\caption{Pair velocity correlations for trajectories at different depths with initial separation of 10-15km (a) and 30-35km (b). (c) Pair velocity correlations plotted as a function of mean pair separation ($r^* = \sqrt{r^2 (t)}$) showing that correlation curves approximately collapse. 
+	Colors correspond to different depths and different initial separations as indicated in the legends, while the observational (Obs) floats are marked by solid lines and model (Mod) particles by dashed lines. Black circles mark the first day for different different the correlation time series in (c).}
+	\label{fig:corr}
+\end{figure*}
+
+% Isotropy
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=38pc, angle=0]{iso_fig.pdf}}
+	\caption{Isotropy, defined as ratio of mean zonal separation to mean meridional separation for pairs at different depths - (a) Shallow and (b) Deep - and for different initial separations. (c) Isotropy ratio plotted as a function of mean pair separation $r^*$.}
+	\label{fig:Iso}
+\end{figure*}
+
+
+% Dispersion
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=38pc, angle=0]{rel_disp.pdf}}
+	\caption{Relative dispersion as a function of time for different $r_0$ and at different depths from the floats (solid lines) and particles (dashed lines). Top row corresponds to shallow sets and bottom row to deep sets, and different colors correspond to different sets as indicated in the legends that are shared between panels. (a,d) show the dispersion on a log-log axis, (b, e) show the dispersion normalized by the initial dispersion on a semi-log axis for ease of comparison to non-local dispersion, and (c,f) show the dispersion in a compensated form as indicated in the axis label for ease of comparison against Richardson dispersion. The gray lines correspond to the linear (solid) and cubic (dashed) power laws. }
+	\label{fig:rel_disp}
+\end{figure*}
+
+
+% Kurtosis
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=18pc, angle=0]{kurtosis_figure.pdf}}
+	\caption{Kurtosis ($\overline{r^4}/\overline{r^2}^2$) as a function of time for the floats (solid lines) and the particles (dashed lines) for different $r_0$ and depths. Top row corresponds to shallow sets and bottom row to deep sets, and different colors correspond to different sets as indicated in the legends. The horizontal lines correspond to the kurtosis for Richardson dispersion (5.6, dashed line) and simple diffusion (2, solid line). }
+	\label{fig:kurt}
+\end{figure*}
+
+% Relative diffusivity
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=38pc, angle=0]{rel_diff.pdf}}
+	\caption{Relative diffusivity as a function of separation scale. Shallow (a) and deep (b) estimates of $\kappa (r)$, for the floats and particles with $\triangle t$ of 1 and 6 days. (c) Slope of the relative diffusivity curve between 6-50km as a function of $\triangle t$. The horizontal gray lines are the values of the slope corresponding to non-local (2, solid) and Richardson (4/3, dashed) dispersion.	(d) Relative diffusivity estimated as $\kappa (r^*, r_0)$ for the deep floats and particles, with $\triangle t$ of 6 days. The gray lines correspond to the power laws expected for non-local (solid) and Richardson (dashed) dispersion. The position of these gray lines is the same in the three panels, and can be used to compare the estimates more easily.}
+	\label{fig:rel_diff}
+\end{figure*}
+
+% Relative diffusivity parts
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=38pc, angle=0]{rel_diff_parts.pdf}}
+	\caption{The zonal and meridional relative diffusivity ($\kappa (r)$) for the shallow (a) and deep (c) floats and particles, estimated with $\triangle t$ of 6 days. The short black line at 500km corresponds to twice the single particle diffusivity from \citet{balwada2016}. The gray lines correspond to the power laws expected for non-local (solid) and Richardson (dashed) dispersion. The meridional relative diffusivity for the shallow (b) and deep (d) floats as a function of separation and $\triangle t$ is contoured. Values of 100 and 1000 $m^2/s$ are contoured using dashed white lines.}
+	\label{fig:rel_diff_parts}
+\end{figure*}
+
+% FSLE
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=18pc, angle=0]{fsle.eps}}
+	\caption{Finite scale Lyapunov Exponents as a function of scale for the shallow and deep sets of trajectories from the floats (solid line) and particles (dashed line). The dashed lines correspond to different theoretical expectations; non-local ($r^0)$, Richardson ($r^{-2/3}$) and simple diffusion ($r^{-2}$). }
+	\label{fig:fsle}
+\end{figure*}
+
+% Noise Impacts
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=38pc, angle=0]{niws_impacts_spatial_figure.pdf}}
+	\appendcaption{A1}{The impact of adding monochromatic waves with inertial frequency to model trajectories on different metrics: Lagrangian frequency spectrum (a), longitudinal structure function (b), relative dispersion (c), relative diffusivity with $dT=1$day (d) and with $dT=6$days (e), and finite scale Lyapunov exponent (f). All plots have data from five sets of trajectories: the original trajectories at a depth of 1500m and the same with added waves of different spatial properties, as noted in legend in (a). In (b),(d),(e) and (f) some lines corresponding to standard scalings are also added in gray.}
+	\label{fig:noise}
+\end{figure*}
+
+
+% CDFs
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=35pc, angle=0]{CDF.pdf}}
+	\appendcaption{B1}{Pair separation cumulative distribution functions for the floats (top row - a,b,c,d) and particles (bottom row - e,f,g,h). Each panel corresponds to a different depth and different $r_0$, as indicated in the panel titles. The contour colorbar ranges from 0 to 1, with increment steps of 0.1. The 0.1, 0.5 and 0.9 contours are marked with dashed black lines, while the mean pair separation is the solid blue line.}
+	\label{fig:CDFs}
+\end{figure*}
+
+% Fit parameters
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=17pc, angle=0]{fit_parameters.pdf}}
+	\appendcaption{B2}{Theoretical parameters $T_L$ (a) and $\beta$ (b) estimated by fitting measured relative dispersion with theoretical relative dispersion (Table 1). Different depths and initial separations are indicated by colors, while the parameters estimated using floats are marked by solid lines and the parameters estimated using the particles are marked by dashed lines. (a) and (b) share their legends. }
+	\label{fig:fit_parameters}
+\end{figure*}
+
+% KS
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=35pc, angle=0]{ks_fig.pdf}}
+	\appendcaption{B3}{Kolmogrov-Smirnov test statistic comparing the measured PDFs to the theoretical PDFs, plotted as a function of time and time over which the relative dispersion is fit to estimate the parameters ($t_a$). A value greater than 0.05, marked by black contour line, suggests that the measured and theoretical PDFs are statistically similar. Rows 1 and 3 (a-d and i-l) compare the float PDFs to the non-local and Richardson dispersion, while rows 2 and 4 (e-h and m-p) compare the particle PDFs to the non-local and Richardson dispersion. The dashed blue vertical line corresponds to the time when the mean pair separation ($r^*$) reaches 100km. The depth and initial separation ($r_0$) is indicated in the panel titles. }
+	\label{fig:ks}
+\end{figure*}
+
+% Ballistic suggestions
+\begin{figure*}[t]
+\centering
+	{\noindent\includegraphics[width=38pc, angle=0]{ballistic_figure.pdf}}
+	\appendcaption{B4}{(a) The memory index, quantifying how quickly the dependence on initial condition is lost for all different choices of depth and $r_0$. The legend for all the figures in shown in (b). (b) The memory index plotted as a function of rescaled time $t_m = t/\tau_m$, where $\tau_m$ is the time it takes for $M(t)$ to reach a value of 0.6. Float (c) and particle (d) relative dispersion plotted in compensated form as a function of rescaled time ($t_m$), to identify if a ballistic regime is observed. In (c) and (d) power laws have been plotted for reference as labeled in the legend in panel (d).}
+	\label{fig:ballistic}
+\end{figure*}
+
+\end{document} 

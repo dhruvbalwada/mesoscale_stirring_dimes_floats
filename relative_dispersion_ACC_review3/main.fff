@@ -1,0 +1,113 @@
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=35pc, angle=0]{intro_fig.pdf}}
+\caption{(a, b) 100 day trajectories of RAFOS floats (a) and a representative set of numerical particles from the MITgcm simulation (b) at different depths. The green dots indicate the position of the trajectory on the first day. The climatological Sub-Antarctic Front (SAF) and Polar Front (PF) are marked by dashed purple lines \citep{orsi1995meridional}. The gray colors represent the bathymetry, with the lightest contour color starting at -6000m depth, and increasing by 1000m intervals. (c) The mean longitude of the RAFOS float trajectory pair vs the number of days since 1 January 2009 at different depths. The first day when the pair formed - when the two trajectories came within the relative separation threshold - is marked as the green dot. (d) The mean pressure of the RAFOS float trajectory pair vs the mean difference in pressure of the two trajectories, averaged over the first 100 days. (e) The number of RAFOS float pairs as a function of time conditioned on initial separation and in different depth ranges. (f) The number of RAFOS float pairs as a function of separation distance in different depth ranges; for statistics where the time evolution of the pair is not tracked. The 'o' markers indicate the center of the separation bin.}
+\label{fig:intro}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=35pc, angle=0]{variability_figure.pdf}}
+\caption{Mean Lagrangian frequency rotary spectra from the RAFOS floats between 500-1000m (a) and 1000-1800m (b). The Mean Lagrangian frequency rotary spectra from the model particles released at mean depths of 500 and 900m are shown in (a), and at depths of 1100 and 1700m are shown in (b) - the spectra at shallower depth in the model are more energetic. Power laws of $\omega^{-3}$ and $\omega^{-5}$ are also shown in (a) and (b). Second order longitudinal velocity structure functions for the RAFOS floats and model particles corresponding to the same depths as (a) and (b) are shown in (c) and (d) respectively. Power laws of $r^{2/3}$ and $r^{2}$ are also shown in (c) and (d).}
+\label{fig:variability}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=38pc, angle=0]{corr_fig.pdf}}
+\caption{Pair velocity correlations for trajectories at different depths with initial separation of 10-15km (a) and 30-35km (b). (c) Pair velocity correlations plotted as a function of mean pair separation ($r^* = \sqrt{r^2 (t)}$) showing that correlation curves approximately collapse.
+Colors correspond to different depths and different initial separations as indicated in the legends, while the observational (Obs) floats are marked by solid lines and model (Mod) particles by dashed lines. Black circles mark the first day for different different the correlation time series in (c).}
+\label{fig:corr}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=38pc, angle=0]{iso_fig.pdf}}
+\caption{Isotropy, defined as ratio of mean zonal separation to mean meridional separation for pairs at different depths - (a) Shallow and (b) Deep - and for different initial separations. (c) Isotropy ratio plotted as a function of mean pair separation $r^*$.}
+\label{fig:Iso}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=38pc, angle=0]{rel_disp.pdf}}
+\caption{Relative dispersion as a function of time for different $r_0$ and at different depths from the floats (solid lines) and particles (dashed lines). Top row corresponds to shallow sets and bottom row to deep sets, and different colors correspond to different sets as indicated in the legends that are shared between panels. (a,d) show the dispersion on a log-log axis, (b, e) show the dispersion normalized by the initial dispersion on a semi-log axis for ease of comparison to non-local dispersion, and (c,f) show the dispersion in a compensated form as indicated in the axis label for ease of comparison against Richardson dispersion. The gray lines correspond to the linear (solid) and cubic (dashed) power laws. }
+\label{fig:rel_disp}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=18pc, angle=0]{kurtosis_figure.pdf}}
+\caption{Kurtosis ($\overline{r^4}/\overline{r^2}^2$) as a function of time for the floats (solid lines) and the particles (dashed lines) for different $r_0$ and depths. Top row corresponds to shallow sets and bottom row to deep sets, and different colors correspond to different sets as indicated in the legends. The horizontal lines correspond to the kurtosis for Richardson dispersion (5.6, dashed line) and simple diffusion (2, solid line). }
+\label{fig:kurt}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=38pc, angle=0]{rel_diff.pdf}}
+\caption{Relative diffusivity as a function of separation scale. Shallow (a) and deep (b) estimates of $\kappa (r)$, for the floats and particles with $\triangle t$ of 1 and 6 days. (c) Slope of the relative diffusivity curve between 6-50km as a function of $\triangle t$. The horizontal gray lines are the values of the slope corresponding to non-local (2, solid) and Richardson (4/3, dashed) dispersion. (d) Relative diffusivity estimated as $\kappa (r^*, r_0)$ for the deep floats and particles, with $\triangle t$ of 6 days. The gray lines correspond to the power laws expected for non-local (solid) and Richardson (dashed) dispersion. The position of these gray lines is the same in the three panels, and can be used to compare the estimates more easily.}
+\label{fig:rel_diff}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=38pc, angle=0]{rel_diff_parts.pdf}}
+\caption{The zonal and meridional relative diffusivity ($\kappa (r)$) for the shallow (a) and deep (c) floats and particles, estimated with $\triangle t$ of 6 days. The short black line at 500km corresponds to twice the single particle diffusivity from \citet{balwada2016}. The gray lines correspond to the power laws expected for non-local (solid) and Richardson (dashed) dispersion. The meridional relative diffusivity for the shallow (b) and deep (d) floats as a function of separation and $\triangle t$ is contoured. Values of 100 and 1000 $m^2/s$ are contoured using dashed white lines.}
+\label{fig:rel_diff_parts}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=18pc, angle=0]{fsle.eps}}
+\caption{Finite scale Lyapunov Exponents as a function of scale for the shallow and deep sets of trajectories from the floats (solid line) and particles (dashed line). The dashed lines correspond to different theoretical expectations; non-local ($r^0)$, Richardson ($r^{-2/3}$) and simple diffusion ($r^{-2}$). }
+\label{fig:fsle}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=38pc, angle=0]{niws_impacts_spatial_figure.pdf}}
+\appendcaption{A1}{The impact of adding monochromatic waves with inertial frequency to model trajectories on different metrics: Lagrangian frequency spectrum (a), longitudinal structure function (b), relative dispersion (c), relative diffusivity with $dT=1$day (d) and with $dT=6$days (e), and finite scale Lyapunov exponent (f). All plots have data from five sets of trajectories: the original trajectories at a depth of 1500m and the same with added waves of different spatial properties, as noted in legend in (a). In (b),(d),(e) and (f) some lines corresponding to standard scalings are also added in gray.}
+\label{fig:noise}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=35pc, angle=0]{CDF.pdf}}
+\appendcaption{B1}{Pair separation cumulative distribution functions for the floats (top row - a,b,c,d) and particles (bottom row - e,f,g,h). Each panel corresponds to a different depth and different $r_0$, as indicated in the panel titles. The contour colorbar ranges from 0 to 1, with increment steps of 0.1. The 0.1, 0.5 and 0.9 contours are marked with dashed black lines, while the mean pair separation is the solid blue line.}
+\label{fig:CDFs}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=17pc, angle=0]{fit_parameters.pdf}}
+\appendcaption{B2}{Theoretical parameters $T_L$ (a) and $\beta$ (b) estimated by fitting measured relative dispersion with theoretical relative dispersion (Table 1). Different depths and initial separations are indicated by colors, while the parameters estimated using floats are marked by solid lines and the parameters estimated using the particles are marked by dashed lines. (a) and (b) share their legends. }
+\label{fig:fit_parameters}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=35pc, angle=0]{ks_fig.pdf}}
+\appendcaption{B3}{Kolmogrov-Smirnov test statistic comparing the measured PDFs to the theoretical PDFs, plotted as a function of time and time over which the relative dispersion is fit to estimate the parameters ($t_a$). A value greater than 0.05, marked by black contour line, suggests that the measured and theoretical PDFs are statistically similar. Rows 1 and 3 (a-d and i-l) compare the float PDFs to the non-local and Richardson dispersion, while rows 2 and 4 (e-h and m-p) compare the particle PDFs to the non-local and Richardson dispersion. The dashed blue vertical line corresponds to the time when the mean pair separation ($r^*$) reaches 100km. The depth and initial separation ($r_0$) is indicated in the panel titles. }
+\label{fig:ks}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[t]
+\centering
+{\noindent\includegraphics[width=38pc, angle=0]{ballistic_figure.pdf}}
+\appendcaption{B4}{(a) The memory index, quantifying how quickly the dependence on initial condition is lost for all different choices of depth and $r_0$. The legend for all the figures in shown in (b). (b) The memory index plotted as a function of rescaled time $t_m = t/\tau_m$, where $\tau_m$ is the time it takes for $M(t)$ to reach a value of 0.6. Float (c) and particle (d) relative dispersion plotted in compensated form as a function of rescaled time ($t_m$), to identify if a ballistic regime is observed. In (c) and (d) power laws have been plotted for reference as labeled in the legend in panel (d).}
+\label{fig:ballistic}
+\end{figure*}
+\efloatseparator
+ 

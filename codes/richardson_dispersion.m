@@ -17,14 +17,14 @@ rich_disp_naive = @(bguess, Ro, xdata) (Ro^(2/3) + 2/3*bguess*xdata).^3;
 
 %%
 xdata = [0:100]; 
-bguess =0.001; 
-Ro =1; 
+bguess =30; 
+Ro =20*1e3; 
 
 %% 
-disp1 = rich_disp(bguess, Ro, xdata); 
+disp1 = rich_disp(bguess, Ro, xdata)/1e6; 
 
 %%
-disp2 = rich_disp_naive(bguess, Ro, xdata); 
+disp2 = rich_disp_naive(bguess*3, Ro, xdata)/1e6; 
 
 %% 
 
@@ -36,7 +36,14 @@ plot(xdata, disp2)
 %% 
 
 figure 
-loglog(xdata, disp1.^(1/3) - Ro^(2/3))
+
+loglog(xdata, disp1.^(1/3) - (Ro/1e3)^(2/3), 'linewidth',2)
 hold all 
-loglog(xdata, disp2.^(1/3) - Ro^(2/3))
+loglog(xdata, disp2.^(1/3) - (Ro/1e3)^(2/3), 'linewidth',2)
 loglog(xdata, xdata,'--')
+legend('Exact', 'Ollitrault', 'x=x')
+xlabel('Days')
+set(gca,'fontsize',18)
+
+ylabel('[$\overline{r^{2}}^{1/3}(t | r_0) - r_0^{2/3}] (km^{2/3})$', 'Interpreter','Latex')
+title('Ro = 20km, \beta=30m^{2/3}/day')

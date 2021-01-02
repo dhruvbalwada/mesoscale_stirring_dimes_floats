@@ -1,0 +1,89 @@
+\begin{table}[t]
+%\begin{landscape}
+%
+\small{\caption{Different dispersion regimes, conditions under which they are applicable, corresponding relative diffusivities (equation 3, 5, section 5, appendix C), PDF solutions to the Focker-Plank equation (equation 4, section 4, appendix B), the corresponding moments (section 4),  and the FSLE scalings (equation 6, section 6) \citep{graff2015relative, foussard2017relative}. The parenthesis note the equations and sections where the different metrics  are discussed. $\beta$ is proportional to the third root of the energy flux across scales or the energy dissipation rate, $I_n ()$ is the n-order modified Bessel function, $M()$ is the Kummer's function, $T_L$ is proportional to the inverse cubic root of the enstrophy dissipation rate or the inverse square root of the total enstrophy, and $C_n$ are constants.}}\label{t1}
+\begin{center}
+
+    \small{
+    \begin{tabularx}{1.05\textwidth}{
+    |>{\hsize=.46\hsize\linewidth=\hsize}X|
+     >{\hsize=.65\hsize\linewidth=\hsize}X|
+     >{\hsize=.35\hsize\linewidth=\hsize}X|
+     >{\hsize=1.4\hsize\linewidth=\hsize}X|
+     >{\hsize=1.3\hsize\linewidth=\hsize}X|
+     >{\hsize=.35\hsize\linewidth=\hsize}X|
+     >{\hsize=.3\hsize\linewidth=\hsize}X|}
+    \hline\hline
+        Dispersion Regime & Conditions of validity & Relative Diffusivity ($\kappa(r,t)$) & Pair Separation PDF ($p(r,t|r_0)$) & Relative Dispersion ($\overline{r^2(t|r_0)}$) & Kurtosis ($\overline{r^4}/\overline{r^2}$) & FSLE ($\lambda(r)$) \\
+    \hline
+        Ballistic & Initial time, Memory of initial conditions still present & $tS2_{ll}(r)$ & - & $r_0^2(1+C_1t^2)$ & - & - \\ \hline
+        Non-Local & Intermediate time, $E(k) \sim k^{-3}$ or steeper spectrum & $r^2/T_L$ &
+        $\begin{aligned}
+        \frac{1}{4 \pi^{3/2} (t/T_L)^{1/2} r_0^2} \\ \exp\left( -\frac{(lnr/r_0 + 2t/T)^2}{4t/T_L}\right)
+        \end{aligned}$ &
+        $
+        r_0^2 exp \left(\frac{8t}{T_L}\right)
+        $
+        & $e^{8t/T_L}$ & $r^0$\\ \hline
+        Richardson (local) & Intermediate time, $E(k) \sim k^{-5/3}$ & $\beta r^{4/3}$ &
+        $\begin{aligned}
+         \frac{3}{4 \pi \beta t r_o^{2/3}r^{2/3}} I_2 \left( \frac{9r_0^{1/3}r^{1/3}}{2 \beta t} \right) \\ \exp \left( -\frac{9(r_0^{2/3} + r^{2/3}) }{4 \beta t}\right)
+        \end{aligned}$
+         &
+         $\begin{aligned}  \frac{5!}{2} \left( \frac{4 \beta t}{9} \right)^3 M\left(6,3, \frac{9 r_0^{2/3}}{4 \beta t} \right) \\ \exp \left( -\frac{9 r_0^{2/3} }{4 \beta t}\right) \end{aligned}$
+         , \newline (visually similar to $(r_0^{2/3} + C_2t)^3$)\newline $\sim t^3$ (asymptotic) & 5.6 (asymptotic) & $r^{-2/3}$ \\ \hline
+        Diffusive & Long time, pair velocities are uncorrelated & Constant ($\kappa_2$) &
+        $\begin{aligned}\frac{1}{2\pi\kappa_2t} \exp(-\frac{r_0^2 + r^2}{4\kappa_2t}) I_0(\frac{r_0r}{}2\kappa_2t) \end{aligned}$
+        & $4 \kappa_2 t$ (asymptotic) & 2 (asymptotic) & $r^{-2}$\\
+    \hline
+    \end{tabularx}
+    }
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[t]
+%\begin{landscape}
+%
+\small{
+\caption{Summary of metrics over scales at which pair velocities are correlated: spatial scales smaller than 100km and temporal scales smaller than 50-100days. The variability metrics are discussed in section 3, and the stirring metrics are discussed in sections 4 (relative dispersion and kurtosis), 5 (relative diffusivity) and  6 (finite size Lyapunov exponents).}}\label{t2}
+
+\begin{center}
+    \small{
+    \begin{tabularx}{1.\textwidth}{
+    |>{\hsize=.65\hsize\linewidth=\hsize}X|
+     >{\hsize=.65\hsize\linewidth=\hsize}X|
+     >{\hsize=.65\hsize\linewidth=\hsize}X|
+     >{\hsize=1.\hsize\linewidth=\hsize}X|
+     >{\hsize=1.\hsize\linewidth=\hsize}X|}
+    %{|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X
+    %|>{\raggedright\arraybackslash}X|}
+    %{|c|m{10em}|c|c|c|c|}
+    \hline\hline
+        \textbf{Variability Metrics} & Domain and Averaging & Model Particles & RAFOS Floats & Summary/Comments \\
+    \hline\
+        Lagrangian Frequency Spectra & Frequency, averaging over all trajectories. & $\omega^{-5 \sim -4}$ & $\omega^{-4 \sim -3}$ ($\omega<1/10days$); $\omega^{-1 \sim -1/2}$ ($\omega>1/10days$) & Enhanced observed variability, likely due to waves aliased to sub-inertial frequencies. \\
+    \hline
+        $2nd$ Order Structure Functions & Space-based, averaging over all sample pairs in bin. & $r^2$ & $r^{2/3 \sim 1}$ & Enhanced observed variability, likely due to waves aliased to sub-inertial frequencies.  \\
+    \hline \hline
+        \textbf{Stirring Metrics} & & & &  \\
+    \hline
+        Relative Dispersion & Time-based, averaging conditioned on fixed initial pair separation. & Non-local & Consistent with model within errorbars & Limited numbers of float pairs does not allow an unambiguous categorization, but similarity to particles is suggestive of non-local dispersion. \\
+    \hline
+        Kurtosis & Time-based, averaging conditioned on fixed initial pair separation. & Non-local & Consistent with model within errorbars &  Limited numbers of float pairs does not allow an unambiguous categorization, but similarity to particles is suggestive of non-local dispersion. \\
+    \hline
+        Relative Diffusivity & Space-based, averaging over all sample pairs in bin. & $r^2$; Non-local & $r^{4/3}$ ($\triangle t=1$day); $r^{1.5\sim 2}$ ($\triangle t = 6$days) Consistent with model within errorbar at larger $\triangle t$ & For floats a steepening of relative diffusivity power law with temporal averaging, to match the particle diffusivity, is highly suggestive of non-local dispersion.\\
+    \hline
+        Finite Size Lyapunov Exponents & Space-based, averaging over all sample pairs in bin. & $r^0$; Non-local & $r^{-1\sim -2/3}$; suggests local & Waves, which do not cause any dispersion, can cause FSLE to appear local even when the dispersion is non-local.  \\
+    \hline
+    \end{tabularx}
+}
+\end{center}
+
+\end{table}
+\efloatseparator
+ 

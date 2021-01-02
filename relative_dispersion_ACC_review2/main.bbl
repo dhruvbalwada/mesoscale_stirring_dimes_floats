@@ -1,0 +1,410 @@
+\begin{thebibliography}{70}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\renewcommand{\UrlFont}{\rmfamily}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{Abernathey and Ferreira(2015)Abernathey, and
+  Ferreira}]{abernathey2015southern}
+Abernathey, R., and D.~Ferreira, 2015: Southern ocean isopycnal mixing and
+  ventilation changes driven by winds. \textit{Geophysical Research Letters},
+  \textbf{42~(23)}, 10--357.
+
+\bibitem[{Artale et~al.(1997)Artale, Boffetta, Celani, Cencini,, and
+  Vulpiani}]{artale1997dispersion}
+Artale, V., G.~Boffetta, A.~Celani, M.~Cencini, and A.~Vulpiani, 1997:
+  Dispersion of passive tracers in closed basins: Beyond the diffusion
+  coefficient. \textit{Physics of Fluids}, \textbf{9~(11)}, 3162--3171.
+
+\bibitem[{Babiano et~al.(1990)Babiano, Basdevant, Le~Roy,, and
+  Sadourny}]{babiano1990relative}
+Babiano, A., C.~Basdevant, P.~Le~Roy, and R.~Sadourny, 1990: Relative
+  dispersion in two-dimensional turbulence. \textit{Journal of Fluid
+  Mechanics}, \textbf{214}, 535--557.
+
+\bibitem[{Babiano et~al.(1985)Babiano, Basdevant,, and
+  Sadourny}]{babiano1985structure}
+Babiano, A., C.~Basdevant, and R.~Sadourny, 1985: Structure functions and
+  dispersion laws in two-dimensional turbulence. \textit{Journal of the
+  atmospheric sciences}, \textbf{42~(9)}, 941--949.
+
+\bibitem[{Balwada et~al.(2016{\natexlab{a}})Balwada, LaCasce,, and
+  Speer}]{balwada2016b}
+Balwada, D., J.~H. LaCasce, and K.~G. Speer, 2016{\natexlab{a}}: Scale
+  dependent distribution of kinetic energy from surface drifters in the gulf of
+  mexico. \textit{Geophysical Research Letters}, n/a--n/a,
+  \doi{10.1002/2016GL069405},
+  \urlprefix\url{http://dx.doi.org/10.1002/2016GL069405}, 2016GL069405.
+
+\bibitem[{Balwada et~al.(2018)Balwada, Smith,, and
+  Abernathey}]{balwada2018submesoscale}
+Balwada, D., K.~S. Smith, and R.~Abernathey, 2018: Submesoscale vertical
+  velocities enhance tracer subduction in an idealized antarctic circumpolar
+  current. \textit{Geophysical Research Letters}, \textbf{45~(18)}, 9790--9802.
+
+\bibitem[{Balwada et~al.(2016{\natexlab{b}})Balwada, Speer, LaCasce, Owens,
+  Marshall,, and Ferrari}]{balwada2016}
+Balwada, D., K.~G. Speer, J.~H. LaCasce, W.~B. Owens, J.~Marshall, and
+  R.~Ferrari, 2016{\natexlab{b}}: Circulation and stirring in the southeast
+  pacific ocean and the scotia sea sectors of the antarctic circumpolar
+  current. \textit{Journal of Physical Oceanography}, \textbf{46~(7)},
+  2005--2027, \doi{10.1175/JPO-D-15-0207.1},
+  \urlprefix\url{http://dx.doi.org/10.1175/JPO-D-15-0207.1},
+  \eprint{http://dx.doi.org/10.1175/JPO-D-15-0207.1}.
+
+\bibitem[{Bennett(1984)}]{bennett1984relative}
+Bennett, A., 1984: Relative dispersion: Local and nonlocal dynamics.
+  \textit{Journal of the atmospheric sciences}, \textbf{41~(11)}, 1881--1886.
+
+\bibitem[{Berger and Zhou(2014)Berger, and Zhou}]{berger2014kolmogorov}
+Berger, V.~W., and Y.~Zhou, 2014: Kolmogorov--smirnov test: Overview.
+  \textit{Wiley statsref: Statistics reference online}.
+
+\bibitem[{Beron-Vera and LaCasce(2016)Beron-Vera, and LaCasce}]{vera2016}
+Beron-Vera, F.~J., and J.~H. LaCasce, 2016: Statistics of simulated and
+  observed pair separations in the gulf of mexico. \textit{Journal of Physical
+  Oceanography}, \textbf{46~(7)}, 2183--2199, \doi{10.1175/JPO-D-15-0127.1},
+  \urlprefix\url{http://dx.doi.org/10.1175/JPO-D-15-0127.1},
+  \eprint{http://dx.doi.org/10.1175/JPO-D-15-0127.1}.
+
+\bibitem[{Berrisford et~al.(2009)Berrisford, Dee, Fielding, Fuentes, Kallberg,
+  Kobayashi,, and Uppala}]{berrisford2009era}
+Berrisford, P., D.~Dee, K.~Fielding, M.~Fuentes, P.~Kallberg, S.~Kobayashi, and
+  S.~Uppala, 2009: The era-interim archive. \textit{ERA report series},
+  \textbf{~(1)}, 1--16.
+
+\bibitem[{Boland et~al.(2015)Boland, Shuckburgh, Haynes, Ledwell, Messias,, and
+  Watson}]{boland2015}
+Boland, E. J.~D., E.~Shuckburgh, P.~H. Haynes, J.~R. Ledwell, M.-J. Messias,
+  and A.~J. Watson, 2015: Estimating a submesoscale diffusivity using a
+  roughness measure applied to a tracer release experiment in the southern
+  ocean. \textit{Journal of Physical Oceanography}, \textbf{45~(6)},
+  1610--1631, \doi{10.1175/JPO-D-14-0047.1},
+  \urlprefix\url{http://dx.doi.org/10.1175/JPO-D-14-0047.1},
+  \eprint{http://dx.doi.org/10.1175/JPO-D-14-0047.1}.
+
+\bibitem[{Bourgoin et~al.(2006)Bourgoin, Ouellette, Xu, Berg,, and
+  Bodenschatz}]{bourgoin2006role}
+Bourgoin, M., N.~T. Ouellette, H.~Xu, J.~Berg, and E.~Bodenschatz, 2006: The
+  role of pair dispersion in turbulent flow. \textit{Science},
+  \textbf{311~(5762)}, 835--838.
+
+\bibitem[{B{\"u}hler et~al.(2014)B{\"u}hler, Callies,, and
+  Ferrari}]{buhler2014}
+B{\"u}hler, O., J.~Callies, and R.~Ferrari, 2014: Wave--vortex decomposition of
+  one-dimensional ship-track data. \textit{Journal of Fluid Mechanics},
+  \textbf{756}, 1007--1026, \doi{10.1017/jfm.2014.488},
+  \urlprefix\url{http://journals.cambridge.org/article_S0022112014004881}.
+
+\bibitem[{B{\"u}hler et~al.(2013)B{\"u}hler, Grisouard,, and
+  Holmes-Cerfon}]{buhler2013strong}
+B{\"u}hler, O., N.~Grisouard, and M.~Holmes-Cerfon, 2013: Strong particle
+  dispersion by weakly dissipative random internal waves. \textit{Journal of
+  Fluid Mechanics}, \textbf{719}.
+
+\bibitem[{B{\"u}hler and Guo(2016)B{\"u}hler, and Guo}]{buhler2016particle}
+B{\"u}hler, O., and Y.~Guo, 2016: Particle dispersion by nonlinearly damped
+  random waves. \textit{Journal of Fluid Mechanics}, \textbf{786}, 332--347.
+
+\bibitem[{Chelton et~al.(1998)Chelton, DeSzoeke, Schlax, El~Naggar,, and
+  Siwertz}]{chelton1998geographical}
+Chelton, D.~B., R.~A. DeSzoeke, M.~G. Schlax, K.~El~Naggar, and N.~Siwertz,
+  1998: Geographical variability of the first baroclinic rossby radius of
+  deformation. \textit{Journal of Physical Oceanography}, \textbf{28~(3)},
+  433--460.
+
+\bibitem[{Corrado et~al.(2017)Corrado, Lacorata, Palatella, Santoleri,, and
+  Zambianchi}]{Corrado2017}
+Corrado, R., G.~Lacorata, L.~Palatella, R.~Santoleri, and E.~Zambianchi, 2017:
+  General characteristics of relative dispersion in the ocean.
+  \textit{Scientific Reports}, \textbf{7}, 46\,291, \doi{10.1038/srep46291},
+  \urlprefix\url{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC5387742/}.
+
+\bibitem[{Cushman-Roisin(2008)}]{cushman2008beyond}
+Cushman-Roisin, B., 2008: Beyond eddy diffusivity: an alternative model for
+  turbulent dispersion. \textit{Environmental fluid mechanics},
+  \textbf{8~(5-6)}, 543--549.
+
+\bibitem[{Essink et~al.(2019)Essink, Hormann, Centurioni,, and
+  Mahadevan}]{essink2019can}
+Essink, S., V.~Hormann, L.~R. Centurioni, and A.~Mahadevan, 2019: Can we detect
+  submesoscale motions in drifter pair dispersion? \textit{Journal of Physical
+  Oceanography}, \textbf{49~(9)}, 2237--2254.
+
+\bibitem[{Ferrari and Wunsch(2009)Ferrari, and Wunsch}]{ferrari2009ocean}
+Ferrari, R., and C.~Wunsch, 2009: Ocean circulation kinetic energy: Reservoirs,
+  sources, and sinks. \textit{Annual Review of Fluid Mechanics}, \textbf{41}.
+
+\bibitem[{Forget(2010)}]{forget2010mapping}
+Forget, G., 2010: Mapping ocean observations in a dynamical framework: A
+  2004--06 ocean atlas. \textit{Journal of Physical Oceanography},
+  \textbf{40~(6)}, 1201--1221.
+
+\bibitem[{Foussard et~al.(2017)Foussard, Berti, Perrot,, and
+  Lapeyre}]{foussard2017relative}
+Foussard, A., S.~Berti, X.~Perrot, and G.~Lapeyre, 2017: Relative dispersion in
+  generalized two-dimensional turbulence. \textit{Journal of Fluid Mechanics},
+  \textbf{821}, 358--383.
+
+\bibitem[{Fox-Kemper et~al.(2013)Fox-Kemper, Lumpkin,, and
+  Bryan}]{fox2013lateral}
+Fox-Kemper, B., R.~Lumpkin, and F.~Bryan, 2013: Lateral transport in the ocean
+  interior. \textit{Ocean Circulation and Climate: A 21st century perspective},
+  \textbf{103}, 185--209.
+
+\bibitem[{Garrett(2006)}]{garrett2006turbulent}
+Garrett, C., 2006: Turbulent dispersion in the ocean. \textit{Progress in
+  Oceanography}, \textbf{70~(2)}, 113--125.
+
+\bibitem[{Gnanadesikan et~al.(2015)Gnanadesikan, Pradal,, and
+  Abernathey}]{gnandesikan2015}
+Gnanadesikan, A., M.-A. Pradal, and R.~Abernathey, 2015: Isopycnal mixing by
+  mesoscale eddies significantly impacts oceanic anthropogenic carbon uptake.
+  \textit{Geophysical Research Letters}, \textbf{42~(11)}, 4249--4255,
+  \doi{10.1002/2015GL064100},
+  \urlprefix\url{file:///Users/dhruvb/Downloads/ams_phoc36_2232.bib},
+  2015GL064100.
+
+\bibitem[{Graff et~al.(2015)Graff, Guttu,, and LaCasce}]{graff2015relative}
+Graff, L., S.~Guttu, and J.~LaCasce, 2015: Relative dispersion in the
+  atmosphere from reanalysis winds. \textit{Journal of the Atmospheric
+  Sciences}, \textbf{72~(7)}, 2769--2785.
+
+\bibitem[{Haza et~al.(2014)Haza, {\"O}zg{\"o}kmen, Griffa, Poje,, and
+  Lelong}]{haza2014does}
+Haza, A.~C., T.~M. {\"O}zg{\"o}kmen, A.~Griffa, A.~C. Poje, and M.-P. Lelong,
+  2014: How does drifter position uncertainty affect ocean dispersion
+  estimates? \textit{Journal of Atmospheric and Oceanic Technology},
+  \textbf{31~(12)}, 2809--2828.
+
+\bibitem[{Holmes-Cerfon et~al.(2011)Holmes-Cerfon, B{\"u}hler,, and
+  Ferrari}]{holmes2011particle}
+Holmes-Cerfon, M., O.~B{\"u}hler, and R.~Ferrari, 2011: Particle dispersion by
+  random waves in the rotating boussinesq system. \textit{Journal of fluid
+  mechanics}, \textbf{670}, 150--175.
+
+\bibitem[{Jones and Abernathey(2019)Jones, and Abernathey}]{jones2019isopycnal}
+Jones, C., and R.~P. Abernathey, 2019: Isopycnal mixing controls deep ocean
+  ventilation. \textit{Geophysical Research Letters}, \textbf{46~(22)},
+  13\,144--13\,151.
+
+\bibitem[{K{\"a}mpf and Cox(2016)K{\"a}mpf, and Cox}]{kampf2016towards}
+K{\"a}mpf, J., and D.~Cox, 2016: Towards improved numerical schemes of
+  turbulent lateral dispersion. \textit{Ocean Modelling}, \textbf{106}, 1--11.
+
+\bibitem[{Kilbourne and Girton(2015)Kilbourne, and
+  Girton}]{kilbourne2015quantifying}
+Kilbourne, B.~F., and J.~B. Girton, 2015: Quantifying high-frequency wind
+  energy flux into near-inertial motions in the southeast pacific.
+  \textit{Journal of Physical Oceanography}, \textbf{45~(2)}, 369--386.
+
+\bibitem[{Koszalka et~al.(2011)Koszalka, LaCasce, Andersson, Orvik,, and
+  Mauritzen}]{koszalka2011surface}
+Koszalka, I., J.~LaCasce, M.~Andersson, K.~Orvik, and C.~Mauritzen, 2011:
+  Surface circulation in the nordic seas from clustered drifters. \textit{Deep
+  Sea Research Part I: Oceanographic Research Papers}, \textbf{58~(4)},
+  468--485.
+
+\bibitem[{Koszalka et~al.(2009)Koszalka, LaCasce,, and
+  Orvik}]{koszalka2009relative}
+Koszalka, I., J.~LaCasce, and K.~Orvik, 2009: Relative dispersion in the nordic
+  seas. \textit{Journal of Marine Research}, \textbf{67~(4)}, 411--433.
+
+\bibitem[{LaCasce(2008)}]{lacasce2008statistics}
+LaCasce, J., 2008: Statistics from lagrangian observations. \textit{Progress in
+  Oceanography}, \textbf{77~(1)}, 1--29.
+
+\bibitem[{LaCasce(2010)}]{lacasce2010relative}
+LaCasce, J., 2010: Relative displacement probability distribution functions
+  from balloons and drifters. \textit{Journal of Marine Research},
+  \textbf{68~(3-4)}, 433--457.
+
+\bibitem[{LaCasce(2016)}]{lacasce2016estimating}
+LaCasce, J., 2016: Estimating eulerian energy spectra from drifters.
+  \textit{Fluids}, \textbf{1~(4)}, 33.
+
+\bibitem[{LaCasce and Bower(2000)LaCasce, and Bower}]{lacasce2000relative}
+LaCasce, J., and A.~Bower, 2000: Relative dispersion in the subsurface north
+  atlantic. \textit{Journal of Marine Research}, \textbf{58~(6)}, 863--894.
+
+\bibitem[{LaCasce and Ohlmann(2003)LaCasce, and Ohlmann}]{lacasce2003relative}
+LaCasce, J., and C.~Ohlmann, 2003: Relative dispersion at the surface of the
+  gulf of mexico. \textit{Journal of Marine Research}, \textbf{61~(3)},
+  285--312.
+
+\bibitem[{LaCasce et~al.(2014)LaCasce, Ferrari, Marshall, Tulloch, Balwada,,
+  and Speer}]{lacasce2014}
+LaCasce, J.~H., R.~Ferrari, J.~Marshall, R.~Tulloch, D.~Balwada, and K.~Speer,
+  2014: Float-derived isopycnal diffusivities in the dimes experiment.
+  \textit{Journal of Physical Oceanography}, \textbf{44~(2)}, 764--780,
+  \doi{10.1175/JPO-D-13-0175.1},
+  \urlprefix\url{http://dx.doi.org/10.1175/JPO-D-13-0175.1},
+  \eprint{http://dx.doi.org/10.1175/JPO-D-13-0175.1}.
+
+\bibitem[{Ledwell et~al.(2000)Ledwell, Montgomery, Polzin, Laurent, Schmitt,,
+  and Toole}]{ledwell2000evidence}
+Ledwell, J., E.~Montgomery, K.~Polzin, L.~S. Laurent, R.~Schmitt, and J.~Toole,
+  2000: Evidence for enhanced mixing over rough topography in the abyssal
+  ocean. \textit{Nature}, \textbf{403~(6766)}, 179.
+
+\bibitem[{Ledwell et~al.(2016)Ledwell, He, Xue, DiMarco, Spencer,, and
+  Chapman}]{ledwell2016dispersion}
+Ledwell, J.~R., R.~He, Z.~Xue, S.~F. DiMarco, L.~J. Spencer, and P.~Chapman,
+  2016: Dispersion of a tracer in the deep gulf of mexico. \textit{Journal of
+  Geophysical Research: Oceans}, \textbf{121~(2)}, 1110--1132.
+
+\bibitem[{Ledwell et~al.(1998)Ledwell, Watson,, and Law}]{ledwell1998mixing}
+Ledwell, J.~R., A.~J. Watson, and C.~S. Law, 1998: Mixing of a tracer in the
+  pycnocline. \textit{Journal of Geophysical Research: Oceans},
+  \textbf{103~(C10)}, 21\,499--21\,529.
+
+\bibitem[{Lilly(2019)}]{lilly2019jlab}
+Lilly, J., 2019: jlab: a data analysis package for matlab, v. 1.6.6.
+  \textit{See http://www. jmlilly. net/jmlsoft. html}.
+
+\bibitem[{Lumpkin and Elipot(2010)Lumpkin, and Elipot}]{lumpkin2010surface}
+Lumpkin, R., and S.~Elipot, 2010: Surface drifter pair spreading in the north
+  atlantic. \textit{Journal of Geophysical Research: Oceans},
+  \textbf{115~(C12)}.
+
+\bibitem[{Marshall and Speer(2012)Marshall, and Speer}]{marshall2012closure}
+Marshall, J., and K.~Speer, 2012: Closure of the meridional overturning
+  circulation through southern ocean upwelling. \textit{Nature Geoscience},
+  \textbf{5~(3)}, 171--180.
+
+\bibitem[{Morel and Larceveque(1974)Morel, and Larceveque}]{morel1974relative}
+Morel, P., and M.~Larceveque, 1974: Relative dispersion of constant-level
+  balloons in the 200-mb general circulation. \textit{Journal of the
+  Atmospheric Sciences}, \textbf{31~(8)}, 2189--2196.
+
+\bibitem[{Nicolleau and Yu(2004)Nicolleau, and Yu}]{nicolleau2004two}
+Nicolleau, F., and G.~Yu, 2004: Two-particle diffusion and locality assumption.
+  \textit{Physics of Fluids}, \textbf{16~(7)}, 2309--2321.
+
+\bibitem[{Okubo(1971)}]{okubo1971oceanic}
+Okubo, A., 1971: Oceanic diffusion diagrams. \textit{Deep sea research and
+  oceanographic abstracts}, Elsevier, Vol.~18, 789--802.
+
+\bibitem[{Ollitrault et~al.(2005)Ollitrault, Gabillet,, and
+  De~Verdiere}]{ollitrault2005open}
+Ollitrault, M., C.~Gabillet, and A.~C. De~Verdiere, 2005: Open ocean regimes of
+  relative dispersion. \textit{Journal of fluid mechanics}, \textbf{533},
+  381--407.
+
+\bibitem[{Orsi et~al.(1995)Orsi, Whitworth,, and Nowlin}]{orsi1995meridional}
+Orsi, A.~H., T.~Whitworth, and W.~D. Nowlin, 1995: On the meridional extent and
+  fronts of the antarctic circumpolar current. \textit{Deep Sea Research Part
+  I: Oceanographic Research Papers}, \textbf{42~(5)}, 641--673.
+
+\bibitem[{Poje et~al.(2014)}]{poje2014submesoscale}
+Poje, A.~C., and Coauthors, 2014: Submesoscale dispersion in the vicinity of
+  the deepwater horizon spill. \textit{Proceedings of the National Academy of
+  Sciences}, \textbf{111~(35)}, 12\,693--12\,698.
+
+\bibitem[{Polzin and Ferrari(2004)Polzin, and Ferrari}]{polzin2004isopycnal}
+Polzin, K., and R.~Ferrari, 2004: Isopycnal dispersion in natre.
+  \textit{Journal of physical oceanography}, \textbf{34~(1)}, 247--257.
+
+\bibitem[{Richardson(1926)}]{richardson1926atmospheric}
+Richardson, L.~F., 1926: Atmospheric diffusion shown on a distance-neighbour
+  graph. \textit{Proceedings of the Royal Society of London. Series A,
+  Containing Papers of a Mathematical and Physical Character},
+  \textbf{110~(756)}, 709--737.
+
+\bibitem[{Roach et~al.(2016)Roach, Balwada,, and Speer}]{roach2016horizontal}
+Roach, C.~J., D.~Balwada, and K.~Speer, 2016: Horizontal mixing in the southern
+  ocean from argo float trajectories. \textit{Journal of Geophysical Research:
+  Oceans}, \textbf{121~(8)}, 5570--5586.
+
+\bibitem[{Roach et~al.(2018)Roach, Balwada,, and Speer}]{roach2018global}
+Roach, C.~J., D.~Balwada, and K.~Speer, 2018: Global observations of horizontal
+  mixing from argo float and surface drifter trajectories. \textit{Journal of
+  Geophysical Research: Oceans}.
+
+\bibitem[{Rossby et~al.(1986)Rossby, Dorson,, and Fontaine}]{rossby1986rafos}
+Rossby, T., D.~Dorson, and J.~Fontaine, 1986: The rafos system. \textit{Journal
+  of Atmospheric and Oceanic Technology}, \textbf{3~(4)}, 672--679.
+
+\bibitem[{Sans{\'o}n(2015)}]{sanson2015surface}
+Sans{\'o}n, L.~Z., 2015: Surface dispersion in the gulf of california.
+  \textit{Progress in Oceanography}, \textbf{137}, 24--37.
+
+\bibitem[{Sinha et~al.(2019)Sinha, Balwada, Tarshish,, and
+  Abernathey}]{sinha2019modulation}
+Sinha, A., D.~Balwada, N.~Tarshish, and R.~Abernathey, 2019: Modulation of
+  lateral transport by submesoscale flows and inertia-gravity waves.
+  \textit{Journal of Advances in Modeling Earth Systems}, \textbf{11~(4)},
+  1039--1065.
+
+\bibitem[{Sundermeyer et~al.(2005)Sundermeyer, Ledwell, Oakey,, and
+  Greenan}]{sundermeyer2005stirring}
+Sundermeyer, M.~A., J.~R. Ledwell, N.~S. Oakey, and B.~J. Greenan, 2005:
+  Stirring by small-scale vortices caused by patchy mixing. \textit{Journal of
+  physical oceanography}, \textbf{35~(7)}, 1245--1262.
+
+\bibitem[{Swift and Riser(1994)Swift, and Riser}]{swift1994rafos}
+Swift, D.~D., and S.~C. Riser, 1994: Rafos floats: Defining and targeting
+  surfaces of neutral buoyancy. \textit{Journal of atmospheric and Oceanic
+  technology}, \textbf{11~(4)}, 1079--1092.
+
+\bibitem[{Thomas and Yamada(2019)Thomas, and Yamada}]{thomas2019geophysical}
+Thomas, J., and R.~Yamada, 2019: Geophysical turbulence dominated by
+  inertia--gravity waves. \textit{Journal of Fluid Mechanics}, \textbf{875},
+  71--100.
+
+\bibitem[{Thomson and Emery(2014)Thomson, and Emery}]{thomson2014data}
+Thomson, R.~E., and W.~J. Emery, 2014: \textit{Data analysis methods in
+  physical oceanography}. Newnes.
+
+\bibitem[{Tulloch et~al.(2014)}]{tulloch2014direct}
+Tulloch, R., and Coauthors, 2014: Direct estimate of lateral eddy diffusivity
+  upstream of drake passage. \textit{Journal of Physical Oceanography},
+  \textbf{44~(10)}, 2593--2616.
+
+\bibitem[{Uchida et~al.(2019)Uchida, Balwada, Abernathey, McKinley, Smith,, and
+  L{\'e}vy}]{uchida2019contribution}
+Uchida, T., D.~Balwada, R.~Abernathey, G.~McKinley, S.~Smith, and M.~L{\'e}vy,
+  2019: The contribution of submesoscale over mesoscale eddy iron transport in
+  the open southern ocean. \textit{Journal of Advances in Modeling Earth
+  Systems}, \textbf{11~(12)}, 3934--3958.
+
+\bibitem[{Uchida et~al.(2020)Uchida, Balwada, Abernathey, McKinley, Smith,, and
+  L{\'e}vy}]{uchida2020vertical}
+Uchida, T., D.~Balwada, R.~P. Abernathey, G.~A. McKinley, S.~K. Smith, and
+  M.~L{\'e}vy, 2020: Vertical eddy iron fluxes support primary production in
+  the open southern ocean. \textit{Nature communications}, \textbf{11~(1)},
+  1--8.
+
+\bibitem[{van Sebille et~al.(2015)van Sebille, Waterman, Barthel, Lumpkin,
+  Keating, Fogwill,, and Turney}]{van2015pairwise}
+van Sebille, E., S.~Waterman, A.~Barthel, R.~Lumpkin, S.~R. Keating,
+  C.~Fogwill, and C.~Turney, 2015: Pairwise surface drifter separation in the
+  western pacific sector of the southern ocean. \textit{Journal of Geophysical
+  Research: Oceans}, \textbf{120~(10)}, 6769--6781.
+
+\bibitem[{Watson et~al.(2013)Watson, Ledwell, Messias, King, Mackay, Meredith,
+  Mills,, and Garabato}]{watson2013rapid}
+Watson, A.~J., J.~R. Ledwell, M.-J. Messias, B.~A. King, N.~Mackay, M.~P.
+  Meredith, B.~Mills, and A.~C.~N. Garabato, 2013: Rapid cross-density ocean
+  mixing at mid-depths in the drake passage measured by tracer release.
+  \textit{Nature}, \textbf{501~(7467)}, 408.
+
+\bibitem[{Zhurbas and Oh(2003)Zhurbas, and Oh}]{zhurbas2003lateral}
+Zhurbas, V., and I.~S. Oh, 2003: Lateral diffusivity and lagrangian scales in
+  the pacific ocean as derived from drifter data. \textit{Journal of
+  Geophysical Research: Oceans}, \textbf{108~(C5)}.
+
+\bibitem[{Zika et~al.(2020)Zika, Sall\'ee, Meijers, Naveira-Garabato, Watson,
+  Messias,, and King}]{zika2020}
+Zika, J.~D., J.-B. Sall\'ee, A.~J.~S. Meijers, A.~C. Naveira-Garabato, A.~J.
+  Watson, M.-J. Messias, and B.~A. King, 2020: Tracking the spread of a passive
+  tracer through southern ocean water masses. \textit{Ocean Science},
+  \textbf{16~(2)}, 323--336, \doi{10.5194/os-16-323-2020},
+  \urlprefix\url{https://www.ocean-sci.net/16/323/2020/}.
+
+\end{thebibliography}
