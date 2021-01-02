@@ -1,4 +1,4 @@
-# (Sub)mesoscale Lagrangian Pair Dispersion in the Sub-Surface Antarctic Circumpolar Current
+# Relative Disperison in the Antarctic Circumpolar Current
 ## Dhruv Balwada, Joseph H. LaCasce, Kevin G. Speer and Raffaelle Ferrari
 
 This repository contains the scripts to calculate and plot the metrics present in the paper *DOI*.  
